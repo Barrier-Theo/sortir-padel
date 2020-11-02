@@ -3,9 +3,11 @@
 {% block title %}New Lieu{% endblock %}
 
 {% block body %}
-    <h1>Create new Lieu</h1>
+<div class="container-fluid">
+    <h1>Ajouter un lieu</h1>
 
     {{ include('lieu/_form.html.twig') }}
 
-    <a href="{{ path('lieu_index') }}">back to list</a>
+    <a href="{{ path('lieu_index') }}">Retour à la liste</a>
+</div>
 {% endblock %}
