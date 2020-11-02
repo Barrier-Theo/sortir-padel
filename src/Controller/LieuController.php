@@ -21,7 +21,7 @@ class LieuController extends AbstractController
     public function index(LieuRepository $lieuRepository): Response
     {
         return $this->render('lieu/index.html.twig', [
-            'lieus' => $lieuRepository->findAll(),
+            'lieux' => $lieuRepository->findAll(),
         ]);
     }
 
