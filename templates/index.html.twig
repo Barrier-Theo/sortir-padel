@@ -1,2 +1,10 @@
 {% extends "base.html.twig" %}
-{% block body %}{% endblock %}
+{% block body %}
+    <div class="container text-center">
+        {% if app.user %}
+            <p>Hello {{ app.user.nom }}</p>
+        {% else %}
+            <p> tu n'es pas connecté</p>
+        {%  endif %}
+    </div>
+{% endblock %}
