@@ -3,12 +3,12 @@
 {% block title %}Ville index{% endblock %}
 
 {% block body %}
-    <h1>Ville index</h1>
+<div class="container-fluid">
+    <h1>Liste des villes</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>CodePostal</th>
                 <th>actions</th>
@@ -17,21 +17,21 @@
         <tbody>
         {% for ville in villes %}
             <tr>
-                <td>{{ ville.id }}</td>
                 <td>{{ ville.nom }}</td>
                 <td>{{ ville.codePostal }}</td>
                 <td>
-                    <a href="{{ path('ville_show', {'id': ville.id}) }}">show</a>
-                    <a href="{{ path('ville_edit', {'id': ville.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('ville_show', {'id': ville.id}) }}">Voir</a>
+                    <a class="btn btn-primary" href="{{ path('ville_edit', {'id': ville.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Pas de ville en base de données</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('ville_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('ville_new') }}">Ajouter</a>
+</div>
 {% endblock %}

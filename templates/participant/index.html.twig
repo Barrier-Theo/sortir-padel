@@ -3,17 +3,16 @@
 {% block title %}Participant index{% endblock %}
 
 {% block body %}
-    <h1>Participant index</h1>
+<div class="container-fluid">
+    <h1>Liste des utilisateurs</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Telephone</th>
                 <th>Mail</th>
-                <th>MotDePasse</th>
                 <th>Administrateur</th>
                 <th>Actif</th>
                 <th>actions</th>
@@ -22,17 +21,15 @@
         <tbody>
         {% for participant in participants %}
             <tr>
-                <td>{{ participant.id }}</td>
                 <td>{{ participant.nom }}</td>
                 <td>{{ participant.prenom }}</td>
                 <td>{{ participant.telephone }}</td>
                 <td>{{ participant.mail }}</td>
-                <td>{{ participant.motDePasse }}</td>
-                <td>{{ participant.administrateur ? 'Yes' : 'No' }}</td>
-                <td>{{ participant.actif ? 'Yes' : 'No' }}</td>
+                <td>{{ participant.administrateur ? 'Oui' : 'Non' }}</td>
+                <td>{{ participant.actif ? 'Oui' : 'Non' }}</td>
                 <td>
-                    <a href="{{ path('participant_show', {'id': participant.id}) }}">show</a>
-                    <a href="{{ path('participant_edit', {'id': participant.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('participant_show', {'id': participant.id}) }}">voir</a>
+                    <a class="btn btn-primary" href="{{ path('participant_edit', {'id': participant.id}) }}">modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -43,5 +40,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('participant_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('participant_new') }}">Ajouter un utilisateur</a>
+</div>
 {% endblock %}
