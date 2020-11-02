@@ -3,9 +3,11 @@
 {% block title %}New Participant{% endblock %}
 
 {% block body %}
-    <h1>Create new Participant</h1>
+<div class="container-fluid">
+    <h1>Ajouter un utilisateur</h1>
 
     {{ include('participant/_form.html.twig') }}
 
-    <a href="{{ path('participant_index') }}">back to list</a>
+    <a href="{{ path('participant_index') }}">Retour à la liste</a>
+</div>
 {% endblock %}

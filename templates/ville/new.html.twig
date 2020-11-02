@@ -3,9 +3,11 @@
 {% block title %}New Ville{% endblock %}
 
 {% block body %}
-    <h1>Create new Ville</h1>
+<div class="container-fluid">
+    <h1>Ajouter une ville</h1>
 
     {{ include('ville/_form.html.twig') }}
 
-    <a href="{{ path('ville_index') }}">back to list</a>
+    <a href="{{ path('ville_index') }}">retour à la liste</a>
+</div>
 {% endblock %}
