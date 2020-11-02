@@ -176,3 +176,7 @@ fabric.properties
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/symfony,vscode,phpstorm
+
+.env
+.env.test
+.idea
