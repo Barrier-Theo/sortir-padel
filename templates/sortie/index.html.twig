@@ -3,12 +3,12 @@
 {% block title %}Sortie index{% endblock %}
 
 {% block body %}
-    <h1>Sortie index</h1>
+<div class="container-fluid">
+    <h1>Liste des sorties</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>DateHeureDebut</th>
                 <th>Duree</th>
@@ -21,7 +21,6 @@
         <tbody>
         {% for sortie in sorties %}
             <tr>
-                <td>{{ sortie.id }}</td>
                 <td>{{ sortie.nom }}</td>
                 <td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ sortie.duree }}</td>
@@ -29,17 +28,18 @@
                 <td>{{ sortie.nbInscriptionMax }}</td>
                 <td>{{ sortie.infosSortie }}</td>
                 <td>
-                    <a href="{{ path('sortie_show', {'id': sortie.id}) }}">show</a>
-                    <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('sortie_show', {'id': sortie.id}) }}">Voir</a>
+                    <a class="btn btn-primary" href="{{ path('sortie_edit', {'id': sortie.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Pas de sortie en base de donnée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('sortie_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('sortie_new') }}">Ajouter</a>
+</div>
 {% endblock %}
