@@ -2,9 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\ActiviteAgentsRepository;
-use App\Repository\InfoImportRepository;
-use App\Traitement\DateImport;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,8 +18,7 @@ class HomeController extends AbstractController{
     public function index(): Response
     {
 
-        return $this->render('index.html.twig',[
-        ]);
+        return $this->render('index.html.twig', []);
     }
 
 }
