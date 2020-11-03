@@ -3,9 +3,11 @@
 {% block title %}New Campus{% endblock %}
 
 {% block body %}
-    <h1>Create new Campus</h1>
+<div class="container-fluid">
+    <h1>Ajouter un campus</h1>
 
     {{ include('campus/_form.html.twig') }}
 
-    <a href="{{ path('campus_index') }}">back to list</a>
+    <a href="{{ path('campus_index') }}">retour à la liste</a>
+</div>
 {% endblock %}
