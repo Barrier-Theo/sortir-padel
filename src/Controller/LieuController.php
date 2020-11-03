@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LieuController extends AbstractController
 {
     /**
-     * @Route("/", name="lieu_index", methods={"GET"})
+     * @Route("/admin/", name="lieu_index", methods={"GET"})
      */
     public function index(LieuRepository $lieuRepository): Response
     {
@@ -26,7 +26,7 @@ class LieuController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="lieu_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="lieu_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,7 +49,30 @@ class LieuController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="lieu_show", methods={"GET"})
+     * @Route("/new", name="lieu_new_user", methods={"GET","POST"})
+     */
+    public function newLieuUser(Request $request): Response
+    {
+        $lieu = new Lieu();
+        $form = $this->createForm(LieuType::class, $lieu);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($lieu);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('lieu_index');
+        }
+
+        return $this->render('lieu/newLieuUser.html.twig', [
+            'lieu' => $lieu,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/{id}", name="lieu_show", methods={"GET"})
      */
     public function show(Lieu $lieu): Response
     {
@@ -59,7 +82,7 @@ class LieuController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="lieu_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="lieu_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Lieu $lieu): Response
     {
@@ -79,7 +102,7 @@ class LieuController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="lieu_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="lieu_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Lieu $lieu): Response
     {

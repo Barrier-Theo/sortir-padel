@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     /**
-     * @Route("/", name="sortie_index", methods={"GET"})
+     * @Route("/admin/", name="sortie_index", methods={"GET"})
      */
     public function index(SortieRepository $sortieRepository): Response
     {
@@ -27,7 +27,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="sortie_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="sortie_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -55,7 +55,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="sortie_show", methods={"GET"})
+     * @Route("/admin/{id}", name="sortie_show", methods={"GET"})
      */
     public function show(Sortie $sortie): Response
     {
@@ -65,7 +65,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="sortie_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="sortie_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Sortie $sortie): Response
     {
@@ -85,7 +85,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="sortie_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="sortie_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Sortie $sortie): Response
     {
@@ -96,5 +96,34 @@ class SortieController extends AbstractController
         }
 
         return $this->redirectToRoute('sortie_index');
+    }
+
+    /**
+     * @Route("/new", name="sortie_new_user", methods={"GET","POST"})
+     */
+    public function newSortieUser(Request $request): Response
+    {
+        $sortie = new Sortie();
+        $form = $this->createForm(SortieType::class, $sortie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $id = $this->getUser()->getId();
+            $organisateur = new Participant();
+            $participantRepo = $this->getDoctrine()->getRepository(Participant::class);
+            $organisateur = $participantRepo->find($id);
+            $sortie->setOrganisateur($organisateur);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+            $this->addFlash('success','sortie ajoutée');
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('sortie/newSortieUser.html.twig', [
+            'sortie' => $sortie,
+            'form' => $form->createView(),
+        ]);
     }
 }

@@ -3,14 +3,11 @@
 {% block title %}Sortie{% endblock %}
 
 {% block body %}
+<div class="container-fluid">
     <h1>Sortie</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ sortie.id }}</td>
-            </tr>
             <tr>
                 <th>Nom</th>
                 <td>{{ sortie.nom }}</td>
@@ -38,9 +35,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('sortie_index') }}">back to list</a>
-
-    <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">edit</a>
+    <a class="btn btn-primary mb-2" href="{{ path('sortie_edit', {'id': sortie.id}) }}">Modifier</a>
 
     {{ include('sortie/_delete_form.html.twig') }}
+
+    <a href="{{ path('sortie_index') }}">retour à la liste des sortie</a>
+</div>
 {% endblock %}

@@ -9,6 +9,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Pseudo</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Telephone</th>
@@ -21,6 +22,7 @@
         <tbody>
         {% for participant in participants %}
             <tr>
+                <td>{{ participant.pseudo }}</td>
                 <td>{{ participant.nom }}</td>
                 <td>{{ participant.prenom }}</td>
                 <td>{{ participant.telephone }}</td>

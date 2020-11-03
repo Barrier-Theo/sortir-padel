@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class ParticipantController extends AbstractController
 {
     /**
-     * @Route("/", name="participant_index", methods={"GET"})
+     * @Route("/admin/", name="participant_index", methods={"GET"})
      */
     public function index(ParticipantRepository $participantRepository): Response
     {
@@ -29,7 +29,7 @@ class ParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="participant_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="participant_new", methods={"GET","POST"})
      */
     public function new(Request $request,  UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -113,7 +113,7 @@ class ParticipantController extends AbstractController
 
 
     /**
-     * @Route("/{id}/edit", name="participant_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="participant_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Participant $participant, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -139,7 +139,7 @@ class ParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="participant_delete", methods={"post"})
+     * @Route("/admin/{id}", name="participant_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Participant $participant): Response
     {
