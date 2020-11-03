@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Lieu{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1>Ajouter un lieu</h1>
+
+    {{ include('lieu/_form.html.twig') }}
+
+    <a href="{{ path('lieu_index') }}">Retour à l'accueil</a>
+</div>
+{% endblock %}
