@@ -37,7 +37,6 @@ class SortieController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $id = $this->getUser()->getId();
-            $organisateur = new Participant();
             $participantRepo = $this->getDoctrine()->getRepository(Participant::class);
             $organisateur = $participantRepo->find($id);
             $sortie->setOrganisateur($organisateur);
