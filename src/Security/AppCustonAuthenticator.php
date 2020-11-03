@@ -72,10 +72,10 @@ class AppCustonAuthenticator extends AbstractFormLoginAuthenticator
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('ce mail n\'existe pas.');
+            throw new CustomUserMessageAuthenticationException('Ce mail n\'existe pas.');
         }else{
             if($user->getActif() == 0){
-                throw new CustomUserMessageAuthenticationException('votre compte a été désactivé.');
+                throw new CustomUserMessageAuthenticationException('Votre compte a été désactivé.');
             }
         }
 
