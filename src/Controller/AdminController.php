@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Form\ImportType;
 use App\Repository\CampusRepository;
+use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -30,7 +31,7 @@ class AdminController extends AbstractController{
      * @Route("/admin/import", name="admin_import")
      */
     public function import(Request $request, CampusRepository $campusRepository, EntityManagerInterface $em
-    , UserPasswordEncoderInterface $passwordEncoder)
+    , UserPasswordEncoderInterface $passwordEncoder, ParticipantRepository $participantRepository)
     {
         $form = $this->createForm(ImportType::class);
         $form->handleRequest($request);
@@ -70,6 +71,10 @@ class AdminController extends AbstractController{
                     }
                     if($campusRepository->findOneBy(['nom' => $data[8]])== null){
                         $this->addFlash('error', 'le campus : ' .$data[8].'n\'existe pas');
+                        return $this->redirectToRoute('admin_import');
+                    }
+                    if($participantRepository->findOneBy(['mail' => $data[4]]) != null){
+                        $this->addFlash('error', 'le mail ' . $data[4]. 'est déja utilisé');
                         return $this->redirectToRoute('admin_import');
                     }
                 }

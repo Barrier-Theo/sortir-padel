@@ -32,4 +32,4 @@ security:
 
     access_control:
      - { path: ^/participant, roles: ROLE_USER }
-     - { path: ^/ville, roles: ROLE_ADMIN }
+     - { path: ^/admin, roles: ROLE_ADMIN }
