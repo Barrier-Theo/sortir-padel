@@ -80,7 +80,8 @@ class AdminController extends AbstractController{
                     $campus = $campusRepository->findOneBy(['nom' => $data[8]]);
                     if($campus != null){
                         $participant = new Participant();
-                        $participant->setNom($data[1])
+                        $participant->setPseudo($data[0])
+                                ->setNom($data[1])
                                 ->setPrenom($data[2])
                                 ->setTelephone($data[3])
                                 ->setMail($data[4])
