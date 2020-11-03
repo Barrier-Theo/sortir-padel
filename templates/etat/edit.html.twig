@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}modification état{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1>Modification état</h1>
+
+    {{ include('etat/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    {{ include('etat/_delete_form.html.twig') }}
+
+    <a href="{{ path('etat_index') }}">retour à la liste</a>
+</div>
+{% endblock %}

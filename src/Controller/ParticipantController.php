@@ -115,13 +115,21 @@ class ParticipantController extends AbstractController
     /**
      * @Route("/{id}/edit", name="participant_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Participant $participant): Response
+    public function edit(Request $request, Participant $participant, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(ParticipantType::class, $participant);
+        $form->get('motDePasse')->setData('');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+
+            $participant->setMotDePasse($passwordEncoder->encodePassword(
+                $participant,
+                $form->get('motDePasse')->getData()
+            ));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($participant);
+            $entityManager->flush();
 
             return $this->redirectToRoute('participant_index');
         }

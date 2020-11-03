@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout état{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1>Ajouter un état</h1>
+
+    {{ include('etat/_form.html.twig') }}
+
+    <a href="{{ path('etat_index') }}">retour à la liste</a>
+</div>
+{% endblock %}

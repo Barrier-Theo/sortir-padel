@@ -1,0 +1,67 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}<link href="{{ asset('css/Chart.min.css') }}" rel="stylesheet">{% endblock %}
+{% block body %}
+  <main class="login-form container-fluid mt-4 mb-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+            {% for message in app.flashes('error') %}
+            <div class="alert alert-danger alert-message">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success alert-message">
+                {{ message }}
+            </div>
+            {% endfor %}
+                <div class="card">
+                    <div class="card-header">Import utilisateur par CSV</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 mb-2">ligne standard d'import du CSV :</div>
+                            <div class="col-12"><i>"pseudo;nom;prénom;0600000000;nom.prenom@user.com;motdepasse;1;1;campus"</i></div>
+                        </div>
+                         {{ form_start(form, {attr: {novalidate: 'novalidate', onsubmit: 'affiche_chargement()'}}) }}                       
+                            <div class="form-group row mt-4">
+                                <label class="col-md-4 col-form-label text-md-right">{{ form_label(form.csv, 'Fichier') }}</label>
+                                <div class="col-md-6">
+                                    {{ form_row(form.csv) }}
+                                </div>
+                            </div>
+                          
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Importer les données
+                                </button>
+                            </div>
+                          {{ form_end(form) }}
+                            
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8 mt-2">
+                <a class="btn btn-secondary" href="{{ path('admin') }}">Retour</a>
+            </div>
+        </div>
+        
+    </div>
+</main>
+{% endblock %}
+{% block javascripts %}
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+<script>
+    
+    //Script pour afficher le nom du fichier pour l'upload dans le input file du formulaire
+  $(document).on('change', '.custom-file-input', function () {
+      console.log('coucou')
+    let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
+    $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
+  });
+</script>
+{% endblock %}
