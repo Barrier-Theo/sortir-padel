@@ -18,7 +18,7 @@
 					<a class="p-2 text-dark" href="#">Accueil</a>
 					<a class="p-2 text-dark" href="#">Villes</a>
 					<a class="p-2 text-dark" href="#">Campus</a>
-					<a class="p-2 text-dark" href="#">Mon profil</a>
+					<a class="p-2 text-dark" href="{{ path('participant_show_me') }}">Mon profil</a>
                     {% if is_granted('ROLE_ADMIN') %}
                     <a class="p-2 text-dark" href="{{ path('admin') }}">Administration</a>
                     {% endif %}

@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
 use App\Repository\ParticipantRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/participant")
@@ -54,6 +56,51 @@ class ParticipantController extends AbstractController
         ]);
     }
 
+
+
+    /**
+     * @Route("/show_me", name="participant_show_me", methods={"GET"})
+     */
+    public function showMe(Request $request, ParticipantRepository $participantRepository, UserInterface $user): Response
+    {
+        $idParticipant = $user->getId();
+        $participant = $participantRepository->find($idParticipant);
+        return $this->render('participant/show_me.html.twig', [
+            'participant' => $participant,
+        ]);
+    }
+
+    /**
+     * @Route("/edit_me}", name="participant_edit_me", methods={"GET","POST"})
+     */
+    public function editMe(Request $request, ParticipantRepository $participantRepository, UserInterface $user, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $idUser = $user->getId();
+        $participant = $participantRepository->find($idUser);
+
+        $form = $this->createForm(ParticipantType::class, $participant);
+        $form->remove('administrateur');
+        $form->remove('actif');
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $participant->setMotDePasse($passwordEncoder->encodePassword(
+                $participant,
+                $form->get('motDePasse')->getData()
+            )
+            );
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('participant_show_me');
+        }
+
+        return $this->render('participant/edit_me.html.twig', [
+            'participant' => $participant,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
     /**
      * @Route("/{id}", name="participant_show", methods={"GET"})
      */
@@ -63,6 +110,7 @@ class ParticipantController extends AbstractController
             'participant' => $participant,
         ]);
     }
+
 
     /**
      * @Route("/{id}/edit", name="participant_edit", methods={"GET","POST"})
@@ -81,11 +129,13 @@ class ParticipantController extends AbstractController
         return $this->render('participant/edit.html.twig', [
             'participant' => $participant,
             'form' => $form->createView(),
+
+
         ]);
     }
 
     /**
-     * @Route("/{id}", name="participant_delete", methods={"DELETE"})
+     * @Route("/{id}", name="participant_delete", methods={"post"})
      */
     public function delete(Request $request, Participant $participant): Response
     {
@@ -97,4 +147,7 @@ class ParticipantController extends AbstractController
 
         return $this->redirectToRoute('participant_index');
     }
+
+
+
 }

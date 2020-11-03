@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Participant{% endblock %}
+
+{% block body %}
+<div class="container-fluid text-center col-6">
+        <h1>{{participant.pseudo}}</h1>
+
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td>Prenom</td>
+                    <td>{{ participant.prenom }}</td>
+                </tr>
+                <tr>
+                    <td>Nom</td>
+                    <td>{{ participant.nom }}</td>
+                </tr>
+                <tr>
+                    <td>Telephone</td>
+                    <td>{{ participant.telephone }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{ participant.mail }}</td>
+                </tr>
+                <tr>
+                    <td>Campus</td>
+                    <td>{{ participant.campus.nom }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a class="btn btn-primary mt-2 mb-2" href="{{ path('participant_edit_me') }}">Modifier</a>
+</div>
+{% endblock %}
