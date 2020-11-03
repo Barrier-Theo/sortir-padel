@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Entity\Sortie;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +22,14 @@ class HomeController extends AbstractController{
     {
         $campusRepo = $this->getDoctrine()->getRepository(Campus::class);
         $campus = $campusRepo->findAll();
-        return $this->render('index.html.twig', []);
+
+        $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
+        $sorties = $sortieRepo->findAll();
+
+        return $this->render('index.html.twig', [
+            "campus" => $campus,
+            "sorties" => $sorties
+        ]);
     }
 
 }
