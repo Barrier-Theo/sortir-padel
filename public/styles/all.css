@@ -15,3 +15,57 @@
     align-items: center;
 }
 
+
+i.icon-2x {
+    font-size: 30px;
+  }
+  
+  .color-light{
+      color:#FFFFFF;
+  }
+  
+  /*Colored Content Boxes
+  ------------------------------------*/
+  .servive-block {
+    padding: 20px 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    transition-duration: .5s;
+  }
+
+  .servive-block:hover {
+    -ms-transform: scale(1.05); /* IE 9 */
+    -webkit-transform: scale(1.05); /* Safari 3-8 */
+    transform: scale(1.05); 
+    transition-duration: .5s;
+  }
+  
+  .servive-block p,
+  .servive-block h2 {
+    color: #fff;
+  }
+  
+  .servive-block h2 a:hover{
+    text-decoration: none;
+  }
+  
+  .servive-block-light,
+  .servive-block-default {
+    background: #fafafa;
+    border: solid 1px #eee; 
+  }
+  
+  .servive-block-default:hover {
+    box-shadow: 0 0 8px #eee;
+  }
+  
+  .servive-block-light p,
+  .servive-block-light h2,
+  .servive-block-default p,
+  .servive-block-default h2 {
+    color: #555;
+  }
+  
+  .servive-block-dark-blue {
+    background: #4765a0;
+  }
