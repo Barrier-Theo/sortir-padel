@@ -3,34 +3,47 @@
 {% block title %}Participant{% endblock %}
 
 {% block body %}
-<div class="container-fluid text-center col-6">
+
+<div class="container-fluid">
+    <div class="row">
+    {% if participant.filename  %}
+        <div class="col-2">
+            <img src= "/sortir-padel/public/{{ vich_uploader_asset(participant, 'imageFile' ) }}" class="img-fluid" alt="Photo de profil" style="width:100%; height:auto" />
+        </div>
+    {% endif %}
+    <div class="col-10 text-center ">
         <h1>{{participant.pseudo}}</h1>
+
 
         <table class="table table-striped">
             <tbody>
-                <tr>
-                    <td>Prenom</td>
-                    <td>{{ participant.prenom }}</td>
-                </tr>
-                <tr>
-                    <td>Nom</td>
-                    <td>{{ participant.nom }}</td>
-                </tr>
-                <tr>
-                    <td>Telephone</td>
-                    <td>{{ participant.telephone }}</td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td>{{ participant.mail }}</td>
-                </tr>
-                <tr>
-                    <td>Campus</td>
-                    <td>{{ participant.campus.nom }}</td>
-                </tr>
+            <tr>
+                <td>Prenom</td>
+                <td>{{ participant.prenom }}</td>
+            </tr>
+            <tr>
+                <td>Nom</td>
+                <td>{{ participant.nom }}</td>
+            </tr>
+            <tr>
+                <td>Telephone</td>
+                <td>{{ participant.telephone }}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{ participant.mail }}</td>
+            </tr>
+            <tr>
+                <td>Campus</td>
+                <td>{{ participant.campus.nom }}</td>
+            </tr>
             </tbody>
         </table>
 
         <a class="btn btn-primary mt-2 mb-2" href="{{ path('participant_edit_me') }}">Modifier</a>
+    </div>
+
+    </div>
+
 </div>
 {% endblock %}
