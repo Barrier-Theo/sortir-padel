@@ -5,7 +5,11 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Form\ImportType;
 use App\Repository\CampusRepository;
+use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
+use App\Repository\SortieRepository;
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -21,10 +25,33 @@ class AdminController extends AbstractController{
     /**
      * @Route("/admin", name="admin")
      */
-    public function index(): Response
+    public function index(ParticipantRepository $participantRepository, SortieRepository $sortieRepository): Response
     {
-
-        return $this->render('admin.html.twig', []);
+        $userActif = $participantRepository->findBy(['actif' => 1]);
+        $sorties = $sortieRepository->findAll();
+        $date = new DateTime('now');
+        $date->add(DateInterval::createFromDateString('-1 months'));
+        $sortieMois = null;
+        $inscriptionDuMois = null;
+        if($sorties != null){
+            foreach($sorties as $sortie){
+                if($sortie->getDateHeureDebut() > $date){
+                    $sortieMois[] = $sortie;
+                    $inscriptions = $sortie->getInscriptions();
+                    if($inscriptions != null){
+                        foreach($inscriptions as $inscription){
+                                $inscriptionDuMois[] = $inscription;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $this->render('admin.html.twig', [
+            'userActif' => $userActif,
+            'sortieDuMois' => $sortieMois,
+            'inscriptionDuMois' => $inscriptionDuMois
+        ]);
     }
 
     /**
