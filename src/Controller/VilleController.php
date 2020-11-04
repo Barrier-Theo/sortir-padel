@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/ville")
+ * @Route("/ville")
  */
 class VilleController extends AbstractController
 {
     /**
-     * @Route("/", name="ville_index", methods={"GET"})
+     * @Route("/admin/", name="ville_index", methods={"GET"})
      */
     public function index(VilleRepository $villeRepository): Response
     {
@@ -26,7 +26,7 @@ class VilleController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="ville_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="ville_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -49,7 +49,30 @@ class VilleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="ville_show", methods={"GET"})
+     * @Route("/new", name="ville_new_user", methods={"GET","POST"})
+     */
+    public function newVileUser(Request $request): Response
+    {
+        $ville = new Ville();
+        $form = $this->createForm(VilleType::class, $ville);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($ville);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('ville_index');
+        }
+
+        return $this->render('ville/newVilleUser.html.twig', [
+            'ville' => $ville,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/{id}", name="ville_show", methods={"GET"})
      */
     public function show(Ville $ville): Response
     {
@@ -59,7 +82,7 @@ class VilleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="ville_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="ville_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Ville $ville): Response
     {
@@ -79,7 +102,7 @@ class VilleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="ville_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="ville_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Ville $ville): Response
     {

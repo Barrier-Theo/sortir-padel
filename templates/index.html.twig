@@ -19,106 +19,37 @@
 		Filtrer les sorties
 	</h1>
 
-	{# Filters #}
-	<div
-		class="filterContainer displayedFLex" style="justify-content: space-evenly">
+	{{ form(search_from) }}
 
-		{# Left filter #}
-		<div
-			class="leftFilter">
-
-			{# Campus option #}
-			<div class="input-group mb-3" style="width: 250px;">
-				<div class="input-group-prepend">
-					<label class="input-group-text" for="inputGroupSelect01">Campus</label>
-				</div>
-				<select class="custom-select" id="inputGroupSelect01">
-					{% for leCampus in campus %}
-						<option value={{leCampus.id}}>{{leCampus.nom}}</option>
-					{% endfor %}
-				</select>
-			</div>
-
-			{# Sortie search #}
-			<div class="input-group mb-3" style="width: 550px;">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">Le nom de la sortie contient</span>
-				</div>
-				<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-			</div>
-
-			{# Datepicker  #}
-			<div class="input-group mb-3" style="width: 550px;">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">Entre</span>
-				</div>
-				<input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">et</span>
-				</div>
-				<input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
-			</div>
-		</div>
-
-		{# Right filter #}
-		<div
-			class="middleFilter">
-
-			{# Checkbox #}
-			<div class="form-check">
-				<input type="checkbox" class="form-check-input" id="exampleCheck1">
-				<label class="form-check-label" for="exampleCheck1">Sorties dont je suis l'organisateur/trice</label>
-			</div>
-
-			<div class="form-check">
-				<input type="checkbox" class="form-check-input" id="exampleCheck1">
-				<label class="form-check-label" for="exampleCheck1">Sorties auxquelles je suis inscrit/e</label>
-			</div>
-
-			<div class="form-check">
-				<input type="checkbox" class="form-check-input" id="exampleCheck1">
-				<label class="form-check-label" for="exampleCheck1">Sorties auxquelles je ne suis pas inscrit/e</label>
-			</div>
-
-			<div class="form-check">
-				<input type="checkbox" class="form-check-input" id="exampleCheck1">
-				<label class="form-check-label" for="exampleCheck1">Sorties passées</label>
-			</div>
-		</div>
-
-		{# Apply filters button #}
-		<button type="button" class="btn btn-primary">Rechercher</button>
-
-	</div>
-
-	<table class="table" style="width: 1500px; margin-left: auto; margin-right: auto">
-		<thead>
-			<tr>
-				<th scope="col">Nom de la sortie</th>
-				<th scope="col">Date de la sortie</th>
-				<th scope="col">Clôture</th>
-				<th scope="col">Inscrits/places</th>
-				<th scope="col">Etat</th>
-				<th scope="col">Organistateur</th>
-				<th scope="col">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for sortie in sorties %}
+		<table class="table" style="width: 1500px; margin-left: auto; margin-right: auto">
+			<thead>
 				<tr>
-					<th scope="row">{{sortie.nom}}</th>
-					<td>{{sortie.dateHeureDebut|date("d/m/Y")}}</td>
-					<td>{{sortie.dateLimiteInscription|date("d/m/Y")}}</td>
-					<td>{{sortie.inscriptions.count}}/{{sortie.nbInscriptionMax}}</td>
-					<th>{{sortie.etat.libelle}}</th>
-					<th>{{sortie.organisateur.prenom}} {{sortie.organisateur.nom|first|upper}}.</th>
-					<th>{{sortie.etat.libelle}}</th>
+					<th scope="col">Nom de la sortie</th>
+					<th scope="col">Date de la sortie</th>
+					<th scope="col">Clôture</th>
+					<th scope="col">Inscrits/places</th>
+					<th scope="col">Etat</th>
+					<th scope="col">Organistateur</th>
+					<th scope="col">Actions</th>
 				</tr>
-			{% endfor %}
 
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{% for sortie in sorties %}
+					<tr>
+						<th scope="row">{{sortie.nom}}</th>
+						<td>{{sortie.dateHeureDebut|date("d/m/Y")}}</td>
+						<td>{{sortie.dateLimiteInscription|date("d/m/Y")}}</td>
+						<td>{{sortie.inscriptions.count}}/{{sortie.nbInscriptionMax}}</td>
+						<th>{{sortie.etat.libelle}}</th>
+						<th>{{sortie.organisateur.prenom}}
+							{{sortie.organisateur.nom|first|upper}}.</th>
+						<th>{{sortie.etat.libelle}}</th>
+					</tr>
+				{% endfor %}
 
-	<a href="{{ path('sortie_new_user') }}" type="button" class="btn btn-primary">Créer une sortie</a>
+			</tbody>
+		</table>
 
-</form>{% endblock %}
+	</form>
+{% endblock %}
