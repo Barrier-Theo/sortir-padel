@@ -6,17 +6,17 @@
 
 <div class="container-fluid">
     <div class="row">
-    {% if participant.filename  %}
+        <div class="col-12 text-center">
+            <h1>{{participant.pseudo}}</h1>
+        </div>
+        {% if participant.filename  %}
         <div class="col-2">
             <img src= "{{ vich_uploader_asset(participant, 'imageFile') | imagine_filter('thumb') }}" class="img-fluid" alt="Photo de profil" />
         </div>
     {% else %}
         <img src= "{{ '/images/participant/avatar_defaut.jpg'  | imagine_filter('thumb') }}" class="img-fluid" alt="Photo de profil" />
     {% endif %}
-    <div class="col-10 text-center ">
-        <h1>{{participant.pseudo}}</h1>
-
-
+    <div class="col-10 text-center">
         <table class="table table-striped">
             <tbody>
             <tr>
