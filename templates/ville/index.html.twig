@@ -4,6 +4,8 @@
 
 {% block body %}
 <div class="container-fluid">
+    <div class="row d-flex justify-content-center">
+        <div class="col-6">
     <h1>Liste des villes</h1>
 
     <table class="table" id="dataTable">
@@ -33,5 +35,7 @@
     </table>
 
     <a class="btn btn-primary" href="{{ path('ville_new') }}">Ajouter</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

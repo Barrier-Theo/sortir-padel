@@ -4,9 +4,11 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h1>Liste des campus</h1>
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        <h1>Liste des campus</h1>
 
-    <table class="table"id="dataTable">
+    <table class="table mt-4"id="dataTable">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -31,5 +33,9 @@
     </table>
 
     <a class="btn btn-primary mt-2" href="{{ path('campus_new') }}">Ajouter</a>
+    </div>
 </div>
+
+</div>
+    
 {% endblock %}

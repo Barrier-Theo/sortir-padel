@@ -4,6 +4,8 @@
 
 {% block body %}
 <div class="container-fluid">
+    <div class="row d-flex justify-content-center">
+        <div class="col-10">
     <h1>Liste des utilisateurs</h1>
 
     <table class="table" id="dataTable">
@@ -43,5 +45,6 @@
     </table>
 
     <a class="btn btn-primary" href="{{ path('participant_new') }}">Ajouter un utilisateur</a>
+        </div></div>
 </div>
 {% endblock %}
