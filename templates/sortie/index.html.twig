@@ -34,7 +34,9 @@
                 <td>
                     <a class="btn btn-primary" href="{{ path('sortie_show', {'id': sortie.id}) }}">Voir</a>
                     <a class="btn btn-primary" href="{{ path('sortie_edit', {'id': sortie.id}) }}">Modifier</a>
+                    {% if (sortie.etat.libelle != 'passée') and (sortie.etat.libelle != 'Activité en cours') and (sortie.etat.libelle != 'Annulée') and (sortie.etat.libelle != 'Clôturée') %}
                     <a  data-toggle="modal" data-target="#exampleModal{{ cpt }}" class="btn btn-warning" href="{{ path('sortie_edit', {'id': sortie.id}) }}">Annuler</a>
+                    {% endif %}
                 </td>
             </tr>
 
