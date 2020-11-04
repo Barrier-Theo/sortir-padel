@@ -37,7 +37,7 @@ class ParticipantType extends AbstractType
                 'choice_label' => 'nom'
             ])
             ->add('imageFile', FileType::class, [
-                'required' => 'false'
+                'required' => false
             ])
         ;
     }

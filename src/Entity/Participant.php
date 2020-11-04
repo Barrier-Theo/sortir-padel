@@ -11,6 +11,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
@@ -34,6 +37,9 @@ class Participant implements UserInterface, \Serializable
 
     /**
      * @var File|null
+     * @Assert\Image(
+     *     mimeTypes= { "image/jpeg", "image/png" }
+     * )
      * @Vich\UploadableField(mapping="participant_image", fileNameProperty="filename")
      */
     private $imageFile;
