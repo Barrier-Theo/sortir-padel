@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -124,6 +126,34 @@ class SortieController extends AbstractController
         return $this->render('sortie/newSortieUser.html.twig', [
             'sortie' => $sortie,
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/annulation", name="annulation_sortie", methods={"POST"})
+     */
+    public function annulationSortie(Request $request, SortieRepository $sortieRepository, EtatRepository $etatRepository, EntityManagerInterface $em): Response
+    {
+        $id = $request->get('sortieId');
+        $infoAnnulation = $request->get('infoAnnulation');
+
+        if($id != null & $infoAnnulation != null){
+            dump($id);
+            dump($infoAnnulation);
+           $sortie =  $sortieRepository->find($id);
+           dump($sortie);
+           $etat = $etatRepository->findOneBy(['libelle' => 'Annulée']);
+           dump($etat);
+           $sortie->setEtat($etat)
+                    ->setInfosSortie('Annulée : '.$infoAnnulation);
+           $em->persist($sortie);
+           $em->flush();
+        }else{
+            $this->addFlash('error', 'annulation impossible');
+        }
+
+        return $this->render('sortie/index.html.twig', [
+            'sorties' => $sortieRepository->findAll()
         ]);
     }
 }

@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <h1>Liste des sorties</h1>
 
-    <table class="table">
+    <table class="table" id="dataTable">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -15,10 +15,12 @@
                 <th>Date limite inscription</th>
                 <th>Inscription max</th>
                 <th>Infos</th>
+                <th>statut</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
+            {% set cpt = 0 %}  
         {% for sortie in sorties %}
             <tr>
                 <td>{{ sortie.nom }}</td>
@@ -27,15 +29,46 @@
                 <td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ sortie.nbInscriptionMax }}</td>
                 <td>{{ sortie.infosSortie }}</td>
+                <td><b>{{sortie.etat.libelle}}</b></td>
                 <td>
                     <a class="btn btn-primary" href="{{ path('sortie_show', {'id': sortie.id}) }}">Voir</a>
                     <a class="btn btn-primary" href="{{ path('sortie_edit', {'id': sortie.id}) }}">Modifier</a>
+                    {% if (sortie.etat.libelle != 'passée') and (sortie.etat.libelle != 'Activité en cours') and (sortie.etat.libelle != 'Annulée') %}
+                    <a  data-toggle="modal" data-target="#exampleModal{{ cpt }}" class="btn btn-warning" href="{{ path('sortie_edit', {'id': sortie.id}) }}">Annuler</a>
+                    {% endif %}
                 </td>
             </tr>
+
+            <div class="modal fade" id="exampleModal{{ cpt }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Annuler la sortie "{{ sortie.nom }}"</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ path('annulation_sortie') }}" method="POST">
+                            <label for="infoAnnulation">Indiquer la raison de l'annulation</label>
+                      <textarea class="col-12" name="infoAnnulation" id="" cols="30" rows="10"></textarea>
+                      <input type="hidden" name="sortieId" value="{{ sortie.id }}">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                      <button type="submit" class="btn btn-primary">Annuler la sortie</button>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% set cpt = cpt + 1 %}  
         {% else %}
             <tr>
                 <td colspan="8">Pas de sortie en base de donnée</td>
             </tr>
+
+            
         {% endfor %}
         </tbody>
     </table>
