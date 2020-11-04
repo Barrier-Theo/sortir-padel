@@ -18,13 +18,15 @@
 				<nav class="my-2 my-md-0 mr-md-3">
 					<a class="p-2 text-dark" href="{{ path('home') }}">Accueil</a>
 					{% if is_granted('ROLE_ADMIN') %}
-                    <a class="p-2 text-dark" href="{{ path('ville_index') }}">Villes</a>
+					<a class="p-2 text-dark" href="{{ path('ville_index') }}">Villes</a>
+					{% else %}
+                    <a class="p-2 text-dark" href="{{ path('ville_new_user') }}">Villes</a>
 					{% endif %}
 					{% if is_granted('ROLE_ADMIN') %}
-                    <a class="p-2 text-dark" href="{{ path('campus_index') }}">Campus</a>
-                    {% endif %}
-                    <a class="p-2 text-dark" href="{{ path('ville_new_user') }}">Villes</a>
+					<a class="p-2 text-dark" href="{{ path('campus_index') }}">Campus</a>
+					{% else %}
                     <a class="p-2 text-dark" href="{{ path('lieu_new_user') }}">Lieux</a>
+                    {% endif %}
 					<a class="p-2 text-dark" href="{{ path('participant_show_me') }}">Mon profil</a>
                     {% if is_granted('ROLE_ADMIN') %}
                     <a class="p-2 text-dark" href="{{ path('admin') }}">Administration</a>
