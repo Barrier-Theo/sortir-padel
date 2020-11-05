@@ -130,7 +130,8 @@ class AdminController extends AbstractController{
                     }
                 }
                 $em->flush();
-                $this->addFlash("success", ["text" => "Import réussi", "couleur" => "#E51F1E"]);
+
+                $this->addFlash("success", ["text" => "Import réussi", "couleur" => "#4CB050"]);
 
             unlink($pathCSV.'/importUser.txt');
             } 
