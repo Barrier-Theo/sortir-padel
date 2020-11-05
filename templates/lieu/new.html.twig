@@ -4,10 +4,14 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h1>Ajouter un lieu</h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-4">
+            <h1>Ajouter un lieu</h1>
 
-    {{ include('lieu/_form.html.twig') }}
+            {{ include('lieu/_form.html.twig') }}
 
-    <a href="{{ path('lieu_index') }}">Retour à la liste</a>
+            <a href="{{ path('lieu_index') }}">Retour à la liste</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

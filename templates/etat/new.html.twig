@@ -4,10 +4,14 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h1>Ajouter un état</h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-4">
+            <h1>Ajouter un état</h1>
 
-    {{ include('etat/_form.html.twig') }}
+            {{ include('etat/_form.html.twig') }}
 
-    <a href="{{ path('etat_index') }}">retour à la liste</a>
+            <a href="{{ path('etat_index') }}">retour à la liste</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

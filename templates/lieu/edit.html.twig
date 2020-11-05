@@ -4,10 +4,14 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h1>Modification lieu</h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-4">
+            <h1>Modification lieu</h1>
 
-    {{ include('lieu/_form.html.twig', {'button_label': 'Modifier'}) }}
-    {{ include('lieu/_delete_form.html.twig') }}
-    <a href="{{ path('lieu_index') }}">retour à la liste</a>
+            {{ include('lieu/_form.html.twig', {'button_label': 'Modifier'}) }}
+            {{ include('lieu/_delete_form.html.twig') }}
+            <a href="{{ path('lieu_index') }}">retour à la liste</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
