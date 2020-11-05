@@ -4,47 +4,52 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h1>Utilisateur</h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-6">
+            <h1>Utilisateur</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ participant.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ participant.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ participant.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ participant.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Mail</th>
-                <td>{{ participant.mail }}</td>
-            </tr>
-            <tr>
-                <th>Administrateur</th>
-                <td>{{ participant.administrateur ? 'oui' : 'non' }}</td>
-            </tr>
-            <tr>
-                <th>Actif</th>
-                <td>{{ participant.actif ? 'oui' : 'non' }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ participant.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ participant.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prenom</th>
+                        <td>{{ participant.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Telephone</th>
+                        <td>{{ participant.telephone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mail</th>
+                        <td>{{ participant.mail }}</td>
+                    </tr>
+                    <tr>
+                        <th>Administrateur</th>
+                        <td>{{ participant.administrateur ? 'oui' : 'non' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Actif</th>
+                        <td>{{ participant.actif ? 'oui' : 'non' }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-    
 
-    <a class="btn btn-primary mt-2 mb-2" href="{{ path('participant_edit', {'id': participant.id}) }}">Modifier</a>
 
-    {{ include('participant/_delete_form.html.twig') }}
+            <a class="btn btn-primary mt-2 mb-2"
+                href="{{ path('participant_edit', {'id': participant.id}) }}">Modifier</a>
 
-    <a href="{{ path('participant_index') }}">Retour à la liste</a>
+            {{ include('participant/_delete_form.html.twig') }}
+
+            <a href="{{ path('participant_index') }}">Retour à la liste</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

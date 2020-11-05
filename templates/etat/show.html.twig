@@ -4,21 +4,25 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h1>état</h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-4">
+            <h1>état</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Libelle</th>
-                <td>{{ etat.libelle }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Libelle</th>
+                        <td>{{ etat.libelle }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-    <a class="btn btn-primary mb-2" href="{{ path('etat_edit', {'id': etat.id}) }}">modifier</a>
+            <a class="btn btn-primary mb-2" href="{{ path('etat_edit', {'id': etat.id}) }}">modifier</a>
 
-    {{ include('etat/_delete_form.html.twig') }}
+            {{ include('etat/_delete_form.html.twig') }}
 
-    <a href="{{ path('etat_index') }}">retour à la liste</a>
+            <a href="{{ path('etat_index') }}">retour à la liste</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

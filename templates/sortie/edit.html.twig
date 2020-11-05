@@ -4,12 +4,16 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h1>Modification sortie</h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-6">
+            <h1>Modification sortie</h1>
 
-    {{ include('sortie/_form.html.twig', {'button_label': 'Modifier'}) }}
+            {{ include('sortie/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    {{ include('sortie/_delete_form.html.twig') }}
+            {{ include('sortie/_delete_form.html.twig') }}
 
-    <a href="{{ path('sortie_index') }}">retour à la liste</a>
+            <a href="{{ path('sortie_index') }}">retour à la liste</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

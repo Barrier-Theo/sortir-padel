@@ -34,11 +34,11 @@ class VilleController extends AbstractController
         $form = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) { 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ville);
             $entityManager->flush();
-            $this->addFlash("success", [ "message" => 'Une ville a été créée !',"label" => "reussite", "couleur" => "green"]);
+            $this->addFlash("success", [ "text" => 'Une ville a été créée !',"label" => "reussite", "couleur" => "#4CB050"]);
 
             return $this->redirectToRoute('ville_index');
         }
@@ -95,8 +95,6 @@ class VilleController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash("success", ["text" => "Une ville a été modifiée !", "couleur" => "#4CB050"]);
             return $this->redirectToRoute('ville_index');
-        }else {
-            $this->addFlash("erreur", ["text" => "La modification de la ville a échoué !", "couleur" => "#E51F1E"]);
         }
 
         return $this->render('ville/edit.html.twig', [
@@ -111,11 +109,11 @@ class VilleController extends AbstractController
     public function delete(Request $request, Ville $ville): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ville->getId(), $request->request->get('_token'))) {
-            $this->addFlash("success", "La ville  {$ville->getNom()} a été supprimé!");
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($ville);
             $entityManager->flush();
+            $this->addFlash("success", ["text" => "La ville  {$ville->getNom()} a été supprimé!", "couleur" => "#4CB050"]);
+
         }
 
         return $this->redirectToRoute('ville_index');
