@@ -74,8 +74,9 @@ class AdminController extends AbstractController{
                           $newFilename
                       );
                   } catch (FileException $e) {
-                    $this->addFlash('error', 'Erreur pendant l\'import du fichier');
-                    return $this->redirectToRoute('admin');
+                      $this->addFlash("erreur", ["text" => "Erreur pendant l'import du fichier", "couleur" => "#E51F1E"]);
+
+                      return $this->redirectToRoute('admin');
                   }             
               }
               
@@ -93,15 +94,16 @@ class AdminController extends AbstractController{
                         !(strlen($data[5])> 0 && strlen($data[5]) < 255) ||
                         !($data[6] == 0 || $data[6]==1) ||
                         !($data[7] == 0 || $data[7]==1) ){
-                        $this->addFlash('error', 'le fichier csv ne respecte pas le standard d\'import');
+                        $this->addFlash("erreur", ["text" => "le fichier csv ne respecte pas le standard d'import", "couleur" => "#E51F1E"]);
                         return $this->redirectToRoute('admin_import');
                     }
                     if($campusRepository->findOneBy(['nom' => $data[8]])== null){
-                        $this->addFlash('error', 'le campus : ' .$data[8].'n\'existe pas');
+                        $this->addFlash("erreur", ["text" => "le campus : ' .$data[8].'n\'existe pas", "couleur" => "#E51F1E"]);
                         return $this->redirectToRoute('admin_import');
                     }
                     if($participantRepository->findOneBy(['mail' => $data[4]]) != null){
-                        $this->addFlash('error', 'le mail ' . $data[4]. 'est déja utilisé');
+                        $this->addFlash("erreur", ["text" => "le mail ' . $data[4]. 'est déja utilisé", "couleur" => "#E51F1E"]);
+
                         return $this->redirectToRoute('admin_import');
                     }
                 }
@@ -128,8 +130,9 @@ class AdminController extends AbstractController{
                     }
                 }
                 $em->flush();
-                $this->addFlash('success', 'Import réussi');
-                unlink($pathCSV.'/importUser.txt');
+                $this->addFlash("success", ["text" => "Import réussi", "couleur" => "#E51F1E"]);
+
+            unlink($pathCSV.'/importUser.txt');
             } 
         }
         return $this->render('importAdmin.html.twig', [

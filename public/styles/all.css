@@ -150,3 +150,13 @@ i.icon-2x {
       transform: rotate(360deg);
     }
   }
+
+.toast {
+  position: absolute !important;
+  z-index: 999999 !important;
+  right: 2em;
+}
+
+.toast-header {
+  color: white !important;
+}

@@ -38,6 +38,7 @@ class CampusController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($campus);
             $entityManager->flush();
+            $this->addFlash("success", ["text" => "Le campus a été créé", "couleur" => "#4CB050"]);
 
             return $this->redirectToRoute('campus_index');
         }
@@ -69,6 +70,8 @@ class CampusController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash("success", ["text" => "Le lieu a été modifié", "couleur" => "#4CB050"]);
+
             return $this->redirectToRoute('campus_index');
         }
 
@@ -87,6 +90,8 @@ class CampusController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($campus);
             $entityManager->flush();
+            $this->addFlash("success", ["text" => "Le lieu a été supprimé", "couleur" => "#4CB050"]);
+
         }
 
         return $this->redirectToRoute('campus_index');

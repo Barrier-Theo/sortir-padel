@@ -47,6 +47,7 @@ class ParticipantController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($participant);
             $entityManager->flush();
+            $this->addFlash("success", ["text" => "L'utilisateur a été créée !", "couleur" => "#4CB050"]);
 
             return $this->redirectToRoute('participant_index');
         }
@@ -92,6 +93,8 @@ class ParticipantController extends AbstractController
             )
             );
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash("success", ["text" => "Vous avez modifié votre profil !", "couleur" => "#4CB050"]);
+
             return $this->redirectToRoute('participant_show_me');
         }
 
@@ -127,6 +130,7 @@ class ParticipantController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($participant);
             $entityManager->flush();
+            $this->addFlash("success", ["text" => "L'utilisateur a été modifié", "couleur" => "#4CB050"]);
 
             return $this->redirectToRoute('participant_index');
         }
@@ -148,6 +152,8 @@ class ParticipantController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($participant);
             $entityManager->flush();
+            $this->addFlash("success", ["text" => "L'utilisateur a été supprimé", "couleur" => "#4CB050"]);
+
         }
 
         return $this->redirectToRoute('participant_index');

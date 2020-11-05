@@ -38,6 +38,7 @@ class LieuController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($lieu);
             $entityManager->flush();
+            $this->addFlash("success", ["text" => "Le lieu a été créé", "couleur" => "#4CB050"]);
 
             return $this->redirectToRoute('lieu_index');
         }
@@ -61,6 +62,7 @@ class LieuController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($lieu);
             $entityManager->flush();
+            $this->addFlash("success", ["text" => "Le lieu a été créé", "couleur" => "#4CB050"]);
 
             return $this->redirectToRoute('lieu_index');
         }
@@ -91,6 +93,7 @@ class LieuController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash("success", ["text" => "Le lieu a été modifié", "couleur" => "#4CB050"]);
 
             return $this->redirectToRoute('lieu_index');
         }
@@ -110,6 +113,8 @@ class LieuController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($lieu);
             $entityManager->flush();
+            $this->addFlash("success", ["text" => "Le lieu a été supprimé", "couleur" => "#4CB050"]);
+
         }
 
         return $this->redirectToRoute('lieu_index');

@@ -38,6 +38,7 @@ class EtatController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($etat);
             $entityManager->flush();
+            $this->addFlash("success", ["text" => "L'etat a été créé", "couleur" => "#4CB050"]);
 
             return $this->redirectToRoute('etat_index');
         }
@@ -68,6 +69,7 @@ class EtatController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash("success", ["text" => "L'état a été modifié", "couleur" => "#4CB050"]);
 
             return $this->redirectToRoute('etat_index');
         }
@@ -87,6 +89,7 @@ class EtatController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($etat);
             $entityManager->flush();
+            $this->addFlash("success", ["text" => "Le lieu a été supprimé", "couleur" => "#4CB050"]);
         }
 
         return $this->redirectToRoute('etat_index');
