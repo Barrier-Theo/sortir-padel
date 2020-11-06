@@ -124,7 +124,7 @@ class SortieController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($sortie);
             $entityManager->flush();
-            $this->addFlash("success", ["text" => "La sortie a été créée !", "couleur" => "#4CB050"]);
+            $this->addFlash('success', 'sortie ajoutée');
             return $this->redirectToRoute('home');
         }else {
             $this->addFlash("success", ["text" => "La création de la sortie a échoué !", "couleur" => "#E51F1E"]);
@@ -145,19 +145,19 @@ class SortieController extends AbstractController
         $id = $request->get('sortieId');
         $infoAnnulation = $request->get('infoAnnulation');
 
-        if($id != null & $infoAnnulation != null){
+        if ($id != null & $infoAnnulation != null) {
             dump($id);
             dump($infoAnnulation);
-           $sortie =  $sortieRepository->find($id);
-           dump($sortie);
-           $etat = $etatRepository->findOneBy(['libelle' => 'Annulée']);
-           dump($etat);
-           $sortie->setEtat($etat)
-                    ->setInfosSortie('Annulée : '.$infoAnnulation);
-           $em->persist($sortie);
-           $em->flush();
-        }else{
-            $this->addFlash('erreur', ["text" => "Annulation impossible !", "couleur" => "#E51F1E"]);
+            $sortie =  $sortieRepository->find($id);
+            dump($sortie);
+            $etat = $etatRepository->findOneBy(['libelle' => 'Annulée']);
+            dump($etat);
+            $sortie->setEtat($etat)
+                ->setInfosSortie('Annulée : ' . $infoAnnulation);
+            $em->persist($sortie);
+            $em->flush();
+        } else {
+            $this->addFlash('error', 'annulation impossible');
         }
 
         return $this->render('sortie/index.html.twig', [

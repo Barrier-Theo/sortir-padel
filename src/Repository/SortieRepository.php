@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
+use App\Entity\Inscription;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,25 +23,72 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    public function searchSorties($criteria)
+    // SORTIES FILTERS
+    public function searchSorties(SearchData $search, $userId)
     {
-        return $this->createQueryBuilder('s')
+        $query = $this
+            ->createQueryBuilder('s')
             ->leftJoin('s.Campus', 'campus')
-            ->Where('campus.nom = :campusName')
-            ->setParameter('campusName', $criteria['campus']->getNom())
-            ->getQuery()
-            ->getResult();
-    }
+            ->leftJoin('s.etat', 'etat')
+            ->leftJoin('s.inscriptions', 'inscriptions')
+            ->leftJoin('inscriptions.participant', 'participant');
 
-    /*
-    public function findOneBySomeField($value): ?Sortie
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        // Campus option
+        if (!empty($search->campus)) {
+            $query = $query
+                ->andWhere('campus.nom = :campusName')
+                ->setParameter('campusName', $search->campus->getNom());
+        }
+
+        // Search bar
+        if (!empty($search->q)) {
+            $query = $query
+                ->andWhere('s.nom LIKE :q')
+                ->setParameter('q', "%{$search->q}%");
+        }
+
+        // Start date
+        if (!empty($search->dateDebut)) {
+            $query = $query
+                ->andWhere('s.dateHeureDebut >= :dateDebut')
+                ->setParameter('dateDebut', $search->dateDebut);
+        }
+
+        // End date
+        if (!empty($search->dateFin)) {
+            $query = $query
+                ->andWhere('s.dateHeureDebut <= :dateFin')
+                ->setParameter('dateFin', $search->dateFin);
+        }
+
+        // Is organisateur
+        if (!empty($search->estOrganisateur)) {
+            $query = $query
+                ->andWhere('s.organisateur = :organisateur')
+                ->setParameter('organisateur', $userId);
+        }
+
+        // Is inscrit
+        if (!empty($search->estInscrit)) {
+            $query = $query
+                ->andWhere('participant.id = :participantId')
+                ->setParameter('participantId', $userId);
+        }
+
+        // Isn't inscrit
+        if (!empty($search->pasInscrit)) {
+            $query = $query
+            ->andWhere('participant.id != :participantId')
+            ->setParameter('participantId', $userId);
+        }
+
+        // Passed
+        if (!empty($search->sortiePassee)) {
+            $query = $query
+                ->andWhere('etat.libelle = :etatLibelle')
+                ->setParameter('etatLibelle', "passee");
+        }
+
+        return $query->getQuery()->getResult();
     }
-    */
 }
