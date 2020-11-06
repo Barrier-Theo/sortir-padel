@@ -51,10 +51,10 @@ class HomeController extends AbstractController
             } */
         }
 
-        if ($this->isDateClotureDepassee($sorties[1]) == true) {
+/*         if ($this->isDateClotureDepassee($sorties[1]) == true) {
             $sorties[1]->getEtat()->setLibelle("Clôturée");
             $entityManager->persist($sortie);
-        }
+        } */
 
         return $this->render('index.html.twig', [
             'sorties' => $sorties,
