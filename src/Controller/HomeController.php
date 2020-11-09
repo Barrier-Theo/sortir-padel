@@ -28,6 +28,7 @@ class HomeController extends AbstractController
      */
     public function index(Request $request, SortieRepository $sortieRepository): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_USER");
         $entityManager = $this->getDoctrine()->getManager();
         $userId = $this->getUser()->getId();
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
