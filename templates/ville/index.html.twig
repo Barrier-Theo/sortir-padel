@@ -5,34 +5,34 @@
 {% block body %}
 <div class="container-fluid">
     <div class="row d-flex justify-content-center">
-        <div class="col-6">
-    <h1>Liste des villes</h1>
+        <div class="col-10 col-sm-6">
+            <h1>Liste des villes</h1>
 
-    <table class="table" id="dataTable">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>CodePostal</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for ville in villes %}
-            <tr>
-                <td>{{ ville.nom }}</td>
-                <td>{{ ville.codePostal }}</td>
-                <td>
-                    <a class="btn btn-primary" href="{{ path('ville_show', {'id': ville.id}) }}">Voir</a>
-                    <a class="btn btn-primary" href="{{ path('ville_edit', {'id': ville.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">Pas de ville en base de données</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <table class="table" id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>CodePostal</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for ville in villes %}
+                    <tr>
+                        <td>{{ ville.nom }}</td>
+                        <td>{{ ville.codePostal }}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ path('ville_show', {'id': ville.id}) }}">Voir</a>
+                            <a class="btn btn-primary" href="{{ path('ville_edit', {'id': ville.id}) }}">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">Pas de ville en base de données</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
     <a class="btn btn-primary" href="{{ path('ville_new') }}">Ajouter</a>
         </div>

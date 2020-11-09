@@ -14,7 +14,6 @@
             {% else %}
                 <img src="{{ '/images/participant/avatar_defaut.jpg'  | imagine_filter('thumb') }}" class="img-fluid"
                     alt="Photo de profil" />
-             </div>
         {% endif %}
         </div>
     </div>
@@ -48,5 +47,4 @@
         <a class="btn btn-primary mt-2 mb-2" href="{{ path('participant_edit_me') }}">Modifier</a>
         </div>
     </div>
-</div>
  {% endblock %}
