@@ -538,8 +538,6 @@
                 "orm",
                 "persistence"
             ],
-<<<<<<< Updated upstream
-=======
             "funding": [
                 {
                     "url": "https://www.doctrine-project.org/sponsorship.html",
@@ -554,7 +552,6 @@
                     "type": "tidelift"
                 }
             ],
->>>>>>> Stashed changes
             "time": "2020-11-07T16:32:32+00:00"
         },
         {
@@ -3003,8 +3000,6 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
-<<<<<<< Updated upstream
-=======
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3019,7 +3014,6 @@
                     "type": "tidelift"
                 }
             ],
->>>>>>> Stashed changes
             "time": "2020-11-05T10:56:45+00:00"
         },
         {
