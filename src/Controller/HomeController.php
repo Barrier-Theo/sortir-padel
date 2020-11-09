@@ -73,9 +73,9 @@ class HomeController extends AbstractController
                 $etat = $etatRepo->findOneBy(['libelle' => 'Passée']);
                 $sortie->setEtat($etat);
             }
+            $entityManager->persist($sortie);
         }
 
-        $entityManager->persist($sortie);
         $entityManager->flush();
 
         return $this->render('index.html.twig', [

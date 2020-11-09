@@ -4,7 +4,7 @@
 	<div class="container-fluid">
 		<div class="row d-flex justify-content-center">
 			<div class="col-4">
-				<h1>Sortie</h1>
+				<h1 style="text-align: center;">Sortie</h1>
 				<div class="displayedFLex" style="width: 800px;">
 					<table class="table">
 						<tbody>
@@ -68,35 +68,37 @@
 					</table>
 				</div>
 
-
-				<h1>
+				<h1 style="text-align: center;">
 					Liste des participants inscrits
 				</h1>
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">Pseudo</th>
-							<th scope="col">Nom</th>
-						</tr>
-					</thead>
-					<tbody>
 
-						{% for sortie in sortie.inscriptions %}
+				<div class="displayedFLex">
+					<table class="table">
+						<thead>
 							<tr>
-								<th>
-									<a href="{{ path('participant_profil', {'id': sortie.participant.id}) }}">
-										{{sortie.participant.nom}}</a>
-								</th>
-								<th>
-									<a href="{{ path('participant_profil', {'id': sortie.participant.id}) }}">
-										{{sortie.participant.prenom}}
-										{{sortie.participant.nom|upper}}</a>
-								</th>
+								<th scope="col">Pseudo</th>
+								<th scope="col">Nom</th>
 							</tr>
-						{% endfor %}
+						</thead>
+						<tbody>
+
+							{% for sortie in sortie.inscriptions %}
+								<tr>
+									<th>
+										<a href="{{ path('participant_profil', {'id': sortie.participant.id}) }}">
+											{{sortie.participant.nom}}</a>
+									</th>
+									<th>
+										<a href="{{ path('participant_profil', {'id': sortie.participant.id}) }}">
+											{{sortie.participant.prenom}}
+											{{sortie.participant.nom|upper}}</a>
+									</th>
+								</tr>
+							{% endfor %}
+						</tbody>
 					</tbody>
-				</tbody>
-			</table>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>{% endblock %}

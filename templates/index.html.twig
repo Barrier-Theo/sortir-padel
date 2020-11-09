@@ -7,12 +7,12 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-6 text-center">
-				<h1>
+			<div class="col">
+				<h1 style="text-align: center;">
 					Filtrer les sorties
 				</h1>
 			</div>
-			<div class="col-6 ">
+			<div style="position: absolute; right: 0;">
 				<div class="col-12 text-right">
 					Date du jour :
 					{{ "now"|date("d/m/Y") }}
@@ -23,7 +23,6 @@
 					{{ app.user.nom|first|upper }}
 				</div>
 			</div>
-
 		</div>
 
 		{{ form_start(form)}}
@@ -122,12 +121,13 @@
 							{% endif %}
 
 							{# Annuler #}
-							{% if sortie.organisateur.id == app.user.id and sortie.etat.libelle != "Créée" and sortie.etat.libelle != "Annulée" %}
+							{% if sortie.organisateur.id == app.user.id and (sortie.etat.libelle == "Ouverte" or sortie.etat.libelle == "Clôturée") %}
 								<a href="{{ path('home_cancelsortie', {'sortieId': sortie.id}) }}">
 									Annuler
 								</a>
 							{% endif %}
 
+							{# Modifier / Publier #}
 							{% if sortie.etat.libelle == "Créée" and sortie.organisateur.id == app.user.id %}
 								<a href="{{ path('sortie_edit', {'id': sortie.id}) }}">
 									Modifier
