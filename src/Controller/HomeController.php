@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\Count;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Length;
 
 class HomeController extends AbstractController
@@ -35,7 +36,6 @@ class HomeController extends AbstractController
         $sorties = $sortieRepo->findAll();
 
         $etatRepo = $this->getDoctrine()->getRepository(Etat::class);
-        $etat = $etatRepo->findOneBy(['libelle' => 'Clôturée']);
 
         $data = new SearchData();
         $form = $this->createForm(SearchSortieType::class, $data);
@@ -44,17 +44,39 @@ class HomeController extends AbstractController
         $date = new DateTime('now');
         $date->add(DateInterval::createFromDateString('-1 months'));
 
+        $dateNow = new DateTime('now');
+
         // Delete sorties that last more than 1 month
         foreach ($sorties as $sortie) {
             if ($sortie->getDateHeureDebut() <= $date) {
                 unset($sorties[array_search($sortie, $sorties)]);
             }
 
-            if ($sortie->isSortieCloturee() == true) {
+            dump($sortie->getEtat()->getLibelle());
+            // Sortie clôturée
+            if ($sortie->isSortieCloturee() == true && $sortie->getEtat()->getLibelle() != "Annulée") {
+                $etat = $etatRepo->findOneBy(['libelle' => 'Clôturée']);
                 $sortie->setEtat($etat);
-                $entityManager->persist($sortie);
             }
+
+            // Sortie en cours
+            $dateNow = new DateTime('now');
+            $dateMax = clone ($sortie->getDateHeureDebut());
+            $dateMax->add(DateInterval::createFromDateString('+' . $sortie->getDuree() . 'hours'));
+            if ($dateNow >= $sortie->getDateHeureDebut() && $dateNow <= $dateMax) {
+                $etat = $etatRepo->findOneBy(['libelle' => 'Activité en cours']);
+                $sortie->setEtat($etat);
+            }
+
+            // Sortie terminée
+            if ($dateNow >= $dateMax) {
+                $etat = $etatRepo->findOneBy(['libelle' => 'Passée']);
+                $sortie->setEtat($etat);
+            }
+            $entityManager->persist($sortie);
         }
+
+        $entityManager->flush();
 
         return $this->render('index.html.twig', [
             'sorties' => $sorties,
@@ -136,6 +158,7 @@ class HomeController extends AbstractController
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepo->find($sortieId);
         $sortie->setEtat($etat);
+        $entityManager->persist($sortie);
         $entityManager->flush();
 
         return $this->redirectToRoute('home');
@@ -154,6 +177,7 @@ class HomeController extends AbstractController
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepo->find($sortieId);
         $sortie->setEtat($etat);
+        $entityManager->persist($sortie);
         $entityManager->flush();
 
         return $this->redirectToRoute('home');

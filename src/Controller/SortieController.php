@@ -47,8 +47,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
             $this->addFlash("success", ["text" => "La sortie a été créée !", "couleur" => "#4CB050"]);
-
-
+            
             return $this->redirectToRoute('sortie_index');
         }
 
@@ -73,9 +72,6 @@ class SortieController extends AbstractController
      */
     public function displayFromTable(Sortie $sortie)
     {
-/*         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
-        $sortie = $sortieRepo->find($sortieId); */
-
         return $this->render('sortie/displayFromSorties.html.twig', [
             'sortie' => $sortie,
         ]);

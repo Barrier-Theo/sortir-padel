@@ -4,68 +4,101 @@
 	<div class="container-fluid">
 		<div class="row d-flex justify-content-center">
 			<div class="col-4">
-				<h1>Sortie</h1>
+				<h1 style="text-align: center;">Sortie</h1>
+				<div class="displayedFLex" style="width: 800px;">
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>Nom</th>
+								<td>{{ sortie.nom }}</td>
+							</tr>
+							<tr>
+								<th>DateHeureDebut</th>
+								<td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
+							</tr>
+							<tr>
+								<th>DateLimiteInscription</th>
+								<td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}
+								</td>
+							</tr>
+							<tr>
+								<th>NbInscriptionMax</th>
+								<td>{{ sortie.nbInscriptionMax }}</td>
+							</tr>
+							<tr>
+								<th>Duree</th>
+								<td>{{ sortie.duree }}
+									heures</td>
+							</tr>
+							<tr>
+								<th>InfosSortie</th>
+								<td>{{ sortie.infosSortie }}</td>
+							</tr>
+						</tbody>
+					</table>
 
-				<table class="table">
-					<tbody>
-						<tr>
-							<th>Nom</th>
-							<td>{{ sortie.nom }}</td>
-						</tr>
-						<tr>
-							<th>DateHeureDebut</th>
-							<td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
-						</tr>
-						<tr>
-							<th>DateLimiteInscription</th>
-							<td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}
-							</td>
-						</tr>
-						<tr>
-							<th>NbInscriptionMax</th>
-							<td>{{ sortie.nbInscriptionMax }}</td>
-						</tr>
-						<tr>
-							<th>Duree</th>
-							<td>{{ sortie.duree }}</td>
-						</tr>
-						<tr>
-							<th>InfosSortie</th>
-							<td>{{ sortie.infosSortie }}</td>
-						</tr>
-					</tbody>
-				</table>
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>Campus</th>
+								<td>{{ sortie.campus.nom }}</td>
+							</tr>
+							<tr>
+								<th>Lieu</th>
+								<td>{{ sortie.lieu.nom }}</td>
+							</tr>
+							<tr>
+								<th>Rue</th>
+								<td>{{ sortie.lieu.rue }}
+								</td>
+							</tr>
+							<tr>
+								<th>Code postal</th>
+								<td>{{ sortie.lieu.Ville.codePostal }}</td>
+							</tr>
+							<tr>
+								<th>Latitude</th>
+								<td>{{ sortie.lieu.latitude }}</td>
+							</tr>
+							<tr>
+								<th>Longitude</th>
+								<td>{{ sortie.lieu.longitude }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
-				<table class="table">
-					<tbody>
-						<tr>
-							<th>Nom</th>
-							<td>{{ sortie.campus.nom }}</td>
-						</tr>
-						<tr>
-							<th>DateHeureDebut</th>
-							<td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
-						</tr>
-						<tr>
-							<th>DateLimiteInscription</th>
-							<td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}
-							</td>
-						</tr>
-						<tr>
-							<th>NbInscriptionMax</th>
-							<td>{{ sortie.nbInscriptionMax }}</td>
-						</tr>
-						<tr>
-							<th>Duree</th>
-							<td>{{ sortie.duree }}</td>
-						</tr>
-						<tr>
-							<th>InfosSortie</th>
-							<td>{{ sortie.infosSortie }}</td>
-						</tr>
+				<h1 style="text-align: center;">
+					Liste des participants inscrits
+				</h1>
+
+				<div class="displayedFLex">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Pseudo</th>
+								<th scope="col">Nom</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							{% for sortie in sortie.inscriptions %}
+								<tr>
+									<th>
+										<a href="{{ path('participant_profil', {'id': sortie.participant.id}) }}">
+											{{sortie.participant.nom}}</a>
+									</th>
+									<th>
+										<a href="{{ path('participant_profil', {'id': sortie.participant.id}) }}">
+											{{sortie.participant.prenom}}
+											{{sortie.participant.nom|upper}}</a>
+									</th>
+								</tr>
+							{% endfor %}
+						</tbody>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
-{% endblock %}
+</div>{% endblock %}
