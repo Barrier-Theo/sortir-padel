@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -242,5 +243,25 @@ class Sortie
         $this->organisateur = $organisateur;
 
         return $this;
+    }
+
+    // Check if sortie is full 
+    public function isSortieFull(): bool
+    {
+        if (count($this->getInscriptions()) == $this->getNbInscriptionMax()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function isDateClotureDepassee(): bool
+    {
+        $dateNow = new DateTime('now');
+        if ($dateNow > $this->getDateLimiteInscription()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

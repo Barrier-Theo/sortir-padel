@@ -51,7 +51,7 @@ class HomeController extends AbstractController
             } */
         }
 
-/*         if ($this->isDateClotureDepassee($sorties[1]) == true) {
+        /*         if ($this->isDateClotureDepassee($sorties[1]) == true) {
             $sorties[1]->getEtat()->setLibelle("Clôturée");
             $entityManager->persist($sortie);
         } */
@@ -71,7 +71,7 @@ class HomeController extends AbstractController
         $sortie = $sortieRepo->find($sortieId);
         $entityManager = $this->getDoctrine()->getManager();
 
-        if (!$this->isSortieFull($sortie)) {
+        if (!$sortie->isSortieFull()) {
             $user = $this->getUser();
 
             $inscription = new Inscription();
@@ -102,7 +102,7 @@ class HomeController extends AbstractController
         $inscriptionRepo = $this->getDoctrine()->getRepository(Inscription::class);
         $inscriptions = $inscriptionRepo->findAll();
 
-        if ($this->isSortieFull($sortie) == true && $dateNow <= $sortie->getDateLimiteInscription()) {
+        if ($sortie->isSortieFull() == true && $dateNow <= $sortie->getDateLimiteInscription()) {
             $sortie->getEtat()->setLibelle("Ouverte");
             $entityManager->persist($sortie);
         }
@@ -145,25 +145,5 @@ class HomeController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('home');
-    }
-
-    // Check if sortie is full 
-    public function isSortieFull(Sortie $sortie): bool
-    {
-        if (count($sortie->getInscriptions()) == $sortie->getNbInscriptionMax()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function isDateClotureDepassee($sortie): bool
-    {
-        $dateNow = new DateTime('now');
-        if ($dateNow > $sortie->getDateLimiteInscription()) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
