@@ -70,6 +70,9 @@ class HomeController extends AbstractController
         $sortie = $sortieRepo->find($sortieId);
         $entityManager = $this->getDoctrine()->getManager();
 
+        $etatRepo = $this->getDoctrine()->getRepository(Etat::class);
+        $etat = $etatRepo->findOneBy(['libelle' => 'Clôturée']);
+
         if (!$sortie->isSortieFull()) {
             $user = $this->getUser();
 
@@ -78,7 +81,7 @@ class HomeController extends AbstractController
             $inscription->setSortie($sortie);
             $entityManager->persist($inscription);
         } else {
-            $sortie->getEtat()->setLibelle("Clôturé");
+            $sortie->setEtat($etat);
             $entityManager->persist($sortie);
         }
 
@@ -95,6 +98,9 @@ class HomeController extends AbstractController
         $dateNow = new DateTime('now');
         $entityManager = $this->getDoctrine()->getManager();
 
+        $etatRepo = $this->getDoctrine()->getRepository(Etat::class);
+        $etat = $etatRepo->findOneBy(['libelle' => 'Ouverte']);
+
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepo->find($sortieId);
 
@@ -102,7 +108,7 @@ class HomeController extends AbstractController
         $inscriptions = $inscriptionRepo->findAll();
 
         if ($sortie->isSortieFull() == true && $dateNow <= $sortie->getDateLimiteInscription()) {
-            $sortie->getEtat()->setLibelle("Ouverte");
+            $sortie->setEtat($etat);
             $entityManager->persist($sortie);
         }
 
@@ -123,9 +129,12 @@ class HomeController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
+        $etatRepo = $this->getDoctrine()->getRepository(Etat::class);
+        $etat = $etatRepo->findOneBy(['libelle' => 'Ouverte']);
+
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepo->find($sortieId);
-        $sortie->getEtat()->setLibelle("Ouverte");
+        $sortie->setEtat($etat);
         $entityManager->flush();
 
         return $this->redirectToRoute('home');
@@ -138,9 +147,12 @@ class HomeController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
+        $etatRepo = $this->getDoctrine()->getRepository(Etat::class);
+        $etat = $etatRepo->findOneBy(['libelle' => 'Annulée']);
+
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepo->find($sortieId);
-        $sortie->getEtat()->setLibelle("Annulée");
+        $sortie->setEtat($etat);
         $entityManager->flush();
 
         return $this->redirectToRoute('home');

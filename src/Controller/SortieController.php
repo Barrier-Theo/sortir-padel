@@ -69,6 +69,19 @@ class SortieController extends AbstractController
     }
 
     /**
+     * @Route("/sortievisualisation/{id}", name="sortie_visualisation", methods={"GET"})
+     */
+    public function displayFromTable(Sortie $sortie)
+    {
+/*         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
+        $sortie = $sortieRepo->find($sortieId); */
+
+        return $this->render('sortie/displayFromSorties.html.twig', [
+            'sortie' => $sortie,
+        ]);
+    }
+
+    /**
      * @Route("/admin/{id}/edit", name="sortie_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Sortie $sortie): Response
