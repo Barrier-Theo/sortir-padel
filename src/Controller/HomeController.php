@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Data\SearchData;
 use App\Entity\Campus;
+use App\Entity\Etat;
 use App\Entity\Inscription;
 use App\Entity\Sortie;
 use App\Form\SearchSortieType;
@@ -32,6 +33,9 @@ class HomeController extends AbstractController
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sorties = $sortieRepo->findAll();
 
+        $etatRepo = $this->getDoctrine()->getRepository(Etat::class);
+        $etat = $etatRepo->findOneBy(['libelle' => 'Clôturée']);
+
         $data = new SearchData();
         $form = $this->createForm(SearchSortieType::class, $data);
         $form->handleRequest($request);
@@ -45,16 +49,11 @@ class HomeController extends AbstractController
                 unset($sorties[array_search($sortie, $sorties)]);
             }
 
-            /*             if ($this->isDateClotureDepassee($sortie) == true) {
-                $sortie->getEtat()->setLibelle("Clôturée");
+            if ($sortie->isSortieCloturee() == true) {
+                $sortie->setEtat($etat);
                 $entityManager->persist($sortie);
-            } */
+            }
         }
-
-        /*         if ($this->isDateClotureDepassee($sorties[1]) == true) {
-            $sorties[1]->getEtat()->setLibelle("Clôturée");
-            $entityManager->persist($sortie);
-        } */
 
         return $this->render('index.html.twig', [
             'sorties' => $sorties,
@@ -71,6 +70,9 @@ class HomeController extends AbstractController
         $sortie = $sortieRepo->find($sortieId);
         $entityManager = $this->getDoctrine()->getManager();
 
+        $etatRepo = $this->getDoctrine()->getRepository(Etat::class);
+        $etat = $etatRepo->findOneBy(['libelle' => 'Clôturée']);
+
         if (!$sortie->isSortieFull()) {
             $user = $this->getUser();
 
@@ -79,7 +81,7 @@ class HomeController extends AbstractController
             $inscription->setSortie($sortie);
             $entityManager->persist($inscription);
         } else {
-            $sortie->getEtat()->setLibelle("Clôturé");
+            $sortie->setEtat($etat);
             $entityManager->persist($sortie);
         }
 
@@ -96,6 +98,9 @@ class HomeController extends AbstractController
         $dateNow = new DateTime('now');
         $entityManager = $this->getDoctrine()->getManager();
 
+        $etatRepo = $this->getDoctrine()->getRepository(Etat::class);
+        $etat = $etatRepo->findOneBy(['libelle' => 'Ouverte']);
+
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepo->find($sortieId);
 
@@ -103,7 +108,7 @@ class HomeController extends AbstractController
         $inscriptions = $inscriptionRepo->findAll();
 
         if ($sortie->isSortieFull() == true && $dateNow <= $sortie->getDateLimiteInscription()) {
-            $sortie->getEtat()->setLibelle("Ouverte");
+            $sortie->setEtat($etat);
             $entityManager->persist($sortie);
         }
 
@@ -124,9 +129,12 @@ class HomeController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
+        $etatRepo = $this->getDoctrine()->getRepository(Etat::class);
+        $etat = $etatRepo->findOneBy(['libelle' => 'Ouverte']);
+
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepo->find($sortieId);
-        $sortie->getEtat()->setLibelle("Ouverte");
+        $sortie->setEtat($etat);
         $entityManager->flush();
 
         return $this->redirectToRoute('home');
@@ -139,9 +147,12 @@ class HomeController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
+        $etatRepo = $this->getDoctrine()->getRepository(Etat::class);
+        $etat = $etatRepo->findOneBy(['libelle' => 'Annulée']);
+
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepo->find($sortieId);
-        $sortie->getEtat()->setLibelle("Annulée");
+        $sortie->setEtat($etat);
         $entityManager->flush();
 
         return $this->redirectToRoute('home');

@@ -69,6 +69,19 @@ class SortieController extends AbstractController
     }
 
     /**
+     * @Route("/sortievisualisation/{id}", name="sortie_visualisation", methods={"GET"})
+     */
+    public function displayFromTable(Sortie $sortie)
+    {
+/*         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
+        $sortie = $sortieRepo->find($sortieId); */
+
+        return $this->render('sortie/displayFromSorties.html.twig', [
+            'sortie' => $sortie,
+        ]);
+    }
+
+    /**
      * @Route("/admin/{id}/edit", name="sortie_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Sortie $sortie): Response
@@ -99,7 +112,6 @@ class SortieController extends AbstractController
             $entityManager->remove($sortie);
             $entityManager->flush();
             $this->addFlash("success", ["text" => "La sortie {$sortie->getNom()} a été supprimée !", "couleur" => "#4CB050"]);
-
         }
 
         return $this->redirectToRoute('sortie_index');
@@ -124,11 +136,8 @@ class SortieController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($sortie);
             $entityManager->flush();
-            $this->addFlash('success', 'sortie ajoutée');
+            $this->addFlash('success', ["text" => "Sortie ajoutée", "couleur" => "#4CB050"]);
             return $this->redirectToRoute('home');
-        }else {
-            $this->addFlash("success", ["text" => "La création de la sortie a échoué !", "couleur" => "#E51F1E"]);
-
         }
 
         return $this->render('sortie/newSortieUser.html.twig', [

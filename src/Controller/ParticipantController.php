@@ -72,6 +72,8 @@ class ParticipantController extends AbstractController
         ]);
     }
 
+    
+
     /**
      * @Route("/edit_me}", name="participant_edit_me", methods={"GET","POST"})
      */
@@ -106,11 +108,21 @@ class ParticipantController extends AbstractController
 
 
     /**
-     * @Route("/{id}", name="participant_show", methods={"GET"})
+     * @Route("/admin/{id}", name="participant_show", methods={"GET"})
      */
     public function show(Participant $participant): Response
     {
         return $this->render('participant/show.html.twig', [
+            'participant' => $participant,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="participant_profil", methods={"GET"})
+     */
+    public function showParticipant(Participant $participant): Response
+    {
+        return $this->render('participant/showProfil.html.twig', [
             'participant' => $participant,
         ]);
     }

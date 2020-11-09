@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row d-flex justify-content-center">
+			<div class="col-4">
+				<h1>Sortie</h1>
+
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Nom</th>
+							<td>{{ sortie.nom }}</td>
+						</tr>
+						<tr>
+							<th>DateHeureDebut</th>
+							<td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
+						</tr>
+						<tr>
+							<th>DateLimiteInscription</th>
+							<td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}
+							</td>
+						</tr>
+						<tr>
+							<th>NbInscriptionMax</th>
+							<td>{{ sortie.nbInscriptionMax }}</td>
+						</tr>
+						<tr>
+							<th>Duree</th>
+							<td>{{ sortie.duree }}</td>
+						</tr>
+						<tr>
+							<th>InfosSortie</th>
+							<td>{{ sortie.infosSortie }}</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Nom</th>
+							<td>{{ sortie.campus.nom }}</td>
+						</tr>
+						<tr>
+							<th>DateHeureDebut</th>
+							<td>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d H:i:s') : '' }}</td>
+						</tr>
+						<tr>
+							<th>DateLimiteInscription</th>
+							<td>{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d H:i:s') : '' }}
+							</td>
+						</tr>
+						<tr>
+							<th>NbInscriptionMax</th>
+							<td>{{ sortie.nbInscriptionMax }}</td>
+						</tr>
+						<tr>
+							<th>Duree</th>
+							<td>{{ sortie.duree }}</td>
+						</tr>
+						<tr>
+							<th>InfosSortie</th>
+							<td>{{ sortie.infosSortie }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

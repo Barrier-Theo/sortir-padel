@@ -255,7 +255,7 @@ class Sortie
         }
     }
 
-    public function isDateClotureDepassee(): bool
+    public function isSortieCloturee(): bool
     {
         $dateNow = new DateTime('now');
         if ($dateNow > $this->getDateLimiteInscription()) {

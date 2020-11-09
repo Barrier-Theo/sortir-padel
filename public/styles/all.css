@@ -160,3 +160,12 @@ i.icon-2x {
 .toast-header {
   color: white !important;
 }
+
+
+@media (max-width: 767.98px) { 
+
+.smartphone{
+  display: none;
+}
+
+}
