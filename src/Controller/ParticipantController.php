@@ -63,9 +63,9 @@ class ParticipantController extends AbstractController
     /**
      * @Route("/show_me", name="participant_show_me", methods={"GET"})
      */
-    public function showMe(Request $request, ParticipantRepository $participantRepository, UserInterface $user): Response
+    public function showMe(Request $request, ParticipantRepository $participantRepository): Response
     {
-        $idParticipant = $user->getId();
+        $idParticipant = $this->getUser()->getId();
         $participant = $participantRepository->find($idParticipant);
         return $this->render('participant/show_me.html.twig', [
             'participant' => $participant,
@@ -75,9 +75,9 @@ class ParticipantController extends AbstractController
     /**
      * @Route("/edit_me}", name="participant_edit_me", methods={"GET","POST"})
      */
-    public function editMe(Request $request, ParticipantRepository $participantRepository, UserInterface $user, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function editMe(Request $request, ParticipantRepository $participantRepository, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $idUser = $user->getId();
+        $idUser = $this->getUser()->getId();
         $participant = $participantRepository->find($idUser);
 
         $form = $this->createForm(ParticipantType::class, $participant);
