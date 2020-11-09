@@ -36,12 +36,15 @@
                         Se souvenir de moi
                     </label>
                 </div>
+                <div class=" mb-3">
+                    <a class="btn btn-primary" href="{{ path('app_forgot_password_request') }}">Mot de passe oubliée</a>
+                </div>
 
                 <input type="hidden" name="_csrf_token"
                        value="{{ csrf_token('authenticate') }}"
                 >
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
-                <p class="mt-5 mb-3 text-muted text-center">© 2019-2020</p>
+                <p class="mt-5 mb-3 text-muted text-center">&copy 2019-2020</p>
             </form>
         </div>
     </div>
