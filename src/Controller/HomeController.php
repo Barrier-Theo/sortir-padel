@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Data\SearchData;
 use App\Entity\Campus;
+use App\Entity\Etat;
 use App\Entity\Inscription;
 use App\Entity\Sortie;
 use App\Form\SearchSortieType;
@@ -32,6 +33,9 @@ class HomeController extends AbstractController
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sorties = $sortieRepo->findAll();
 
+        $etatRepo = $this->getDoctrine()->getRepository(Etat::class);
+        $etat = $etatRepo->findOneBy(['libelle' => 'Clôturée']);
+
         $data = new SearchData();
         $form = $this->createForm(SearchSortieType::class, $data);
         $form->handleRequest($request);
@@ -45,16 +49,11 @@ class HomeController extends AbstractController
                 unset($sorties[array_search($sortie, $sorties)]);
             }
 
-            /*             if ($this->isDateClotureDepassee($sortie) == true) {
-                $sortie->getEtat()->setLibelle("Clôturée");
+            if ($sortie->isSortieCloturee() == true) {
+                $sortie->setEtat($etat);
                 $entityManager->persist($sortie);
-            } */
+            }
         }
-
-        /*         if ($this->isDateClotureDepassee($sorties[1]) == true) {
-            $sorties[1]->getEtat()->setLibelle("Clôturée");
-            $entityManager->persist($sortie);
-        } */
 
         return $this->render('index.html.twig', [
             'sorties' => $sorties,
