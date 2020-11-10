@@ -48,12 +48,13 @@ class Lieu
 
     /**
      * @ORM\Column(type="float")
-     * 
+     * @Assert\NotBlank
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank
      */
     private $longitude;
 
