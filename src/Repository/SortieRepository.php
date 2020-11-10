@@ -75,11 +75,15 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('participantId', $userId);
         }
 
+        $subqb = $this->createQueryBuilder('s2')->select('s2.id');
+        $subqb->leftJoin('s2.inscriptions', 'i2');
+        $subqb->andWhere('i2.participant = :me');
+
         // Isn't inscrit
         if (!empty($search->pasInscrit)) {
             $query = $query
-            ->andWhere('participant.id != :participantId')
-            ->setParameter('participantId', $userId);
+            ->andWhere($query->expr()->notIn('s.id', $subqb->getDQL()))
+            ->setParameter('me', $userId);
         }
 
         // Passed
