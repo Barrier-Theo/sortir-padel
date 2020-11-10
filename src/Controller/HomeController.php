@@ -52,7 +52,6 @@ class HomeController extends AbstractController
                 unset($sorties[array_search($sortie, $sorties)]);
             }
 
-            dump($sortie->getEtat()->getLibelle());
             // Sortie clôturée
             if ($sortie->isSortieCloturee() == true && $sortie->getEtat()->getLibelle() != "Annulée") {
                 $etat = $etatRepo->findOneBy(['libelle' => 'Clôturée']);

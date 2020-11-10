@@ -151,12 +151,8 @@ class SortieController extends AbstractController
         $infoAnnulation = $request->get('infoAnnulation');
 
         if ($id != null & $infoAnnulation != null) {
-            dump($id);
-            dump($infoAnnulation);
             $sortie =  $sortieRepository->find($id);
-            dump($sortie);
             $etat = $etatRepository->findOneBy(['libelle' => 'Annulée']);
-            dump($etat);
             $sortie->setEtat($etat)
                 ->setInfosSortie('Annulée : ' . $infoAnnulation);
             $em->persist($sortie);

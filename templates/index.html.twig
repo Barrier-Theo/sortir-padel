@@ -97,8 +97,11 @@
 							<th></th>
 						{% endif %}
 						{# Organisateur #}
-						<th>{{sortie.organisateur.prenom}}
-							{{sortie.organisateur.nom|first|upper}}.</th>
+						<th>
+							<a href="{{ path('participant_profil', {'id': sortie.organisateur.id}) }}">
+								{{sortie.organisateur.prenom}}
+								{{sortie.organisateur.nom|first|upper}}.</a>
+						</th>
 						{# Actions #}
 						<th>
 							{# Afficher #}
