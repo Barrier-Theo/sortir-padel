@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sortie index{% endblock %}
+{% block title %}Liste de Sorties | {{ parent() }}{% endblock %}
 
 {% block body %}
 <div class="container-fluid">
   <div class="row d-flex justify-content-center">
     <div class="col-10 col-sm-6">
     <h1>Liste des sorties</h1>
-
     <table class="table" id="dataTable">
         <thead>
             <tr>

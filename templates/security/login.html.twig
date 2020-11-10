@@ -1,16 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion | {{ parent() }}{% endblock %}
 
 {% block body %}
     {% if error %}
         <div class="alert alert-danger text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
     {% endif %}
 
     <div class="displayedFLex" style="padding-top: 50px">
