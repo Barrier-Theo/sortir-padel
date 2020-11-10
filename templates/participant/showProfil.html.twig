@@ -3,51 +3,45 @@
 {% block title %}Participant{% endblock %}
 
 {% block body %}
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 text-center mt-4 mb-4">
+                <h1>{{participant.pseudo}}</h1>
 
-<div class="container-fluid">
-    <div class="row d-flex justify-content-center">
-
-        <div class="col-12 text-center mt-4 mb-4">
-            <h1>{{participant.pseudo}}</h1>
-        </div>
-        {% if participant.filename  %}
-            <div class="col-2mt-4">
-                <img src= "{{ vich_uploader_asset(participant, 'imageFile') | imagine_filter('thumb') }}" class="img-fluid" alt="Photo de profil" />
+                {% if participant.filename  %}
+                    <img src= "{{ vich_uploader_asset(participant, 'imageFile') | imagine_filter('thumb') }}" class="img-fluid" alt="Photo de profil" />
+                {% else %}
+                    <img src="{{ '/images/participant/avatar_defaut.jpg'  | imagine_filter('thumb') }}" class="img-fluid"
+                         alt="Photo de profil" />
+                {% endif %}
             </div>
-         {% else %}
-            <div class="row">
-        <div class="col-2 "></div>
-        <img src="{{ '/images/participant/avatar_defaut.jpg'  | imagine_filter('thumb') }}" class="img-fluid"
-            alt="Photo de profil" />
+        </div>
+        <div class="row d-flex justify-content-center text-center">
+            <div class="col-12 col-sm-4">
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                    <tr>
+                        <td>Prénom</td>
+                        <td>{{ participant.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nom</td>
+                        <td>{{ participant.nom }}</td>
+                    </tr>
+                    <tr>
+                        <td>Téléphone</td>
+                        <td>{{ participant.telephone }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ participant.mail }}</td>
+                    </tr>
+                    <tr>
+                        <td>Campus</td>
+                        <td>{{ participant.campus.nom }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
     </div>
-        {% endif %}
-    <div class="col-6 text-center">
-        <table class="table table-striped table-bordered">
-            <tbody>
-                <tr>
-                    <td>Prenom</td>
-                    <td>{{ participant.prenom }}</td>
-                </tr>
-                <tr>
-                    <td>Nom</td>
-                    <td>{{ participant.nom }}</td>
-                </tr>
-                <tr>
-                    <td>Telephone</td>
-                    <td>{{ participant.telephone }}</td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td>{{ participant.mail }}</td>
-                </tr>
-                <tr>
-                    <td>Campus</td>
-                    <td>{{ participant.campus.nom }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-</div>
 {% endblock %}

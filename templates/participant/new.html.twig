@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Participant{% endblock %}
+{% block title %}Ajouter un participant | {{ parent() }}{% endblock %}
 
 {% block body %}
 <div class="container-fluid">
         <div class="row d-flex justify-content-center">
                 <div class="col-10 col-sm-4">
-                        <h1>Ajouter un utilisateur</h1>
+                        <h1>Ajouter un participant</h1>
 
                         {{ include('participant/_form.html.twig') }}
 
