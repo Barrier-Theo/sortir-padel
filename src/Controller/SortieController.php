@@ -84,10 +84,13 @@ class SortieController extends AbstractController
     {
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
-
-        if($sortie->getOrganisateur()->getId() !== $this->getUser()->getId()  && !$this->isGranted('ROLE_ADMIN')){
-            return $this->redirectToRoute('home');
+        
+        if(!$this->isGranted('ROLE_ADMIN')){
+            if($sortie->getOrganisateur()->getId() !== $this->getUser()->getId() || $sortie->getEtat()->getLibelle() !== 'Créée'){
+                return $this->redirectToRoute('home');
+            }
         }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
