@@ -18,6 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
  * @UniqueEntity(fields={"mail"}, message="Il y a déjà un compte avec cet e-mail")
+ * @UniqueEntity(fields={"pseudo"}, message="Il y a déjà un compte avec ce pseudo")
+
  * @Vich\Uploadable()
  */
 class Participant implements UserInterface, \Serializable
