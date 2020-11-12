@@ -71,8 +71,8 @@ class Participant implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
           * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
+     *      min = 10,
+     *      max = 10,
      *      minMessage = "{{ limit }} caractères minimum",
      *      maxMessage = "{{ limit }} caractères maximum",
      *      allowEmptyString = false
@@ -83,8 +83,8 @@ class Participant implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
           * @Assert\Length(
-     *      min = 10,
-     *      max = 10,
+     *      min = 4,
+     *      max = 50,
      *      minMessage = "{{ limit }} caractères minimum",
      *      maxMessage = "{{ limit }} caractères maximum",
      *      allowEmptyString = false
