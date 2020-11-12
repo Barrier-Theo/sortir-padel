@@ -46,26 +46,61 @@ class Participant implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
+          * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "{{ limit }} caractères minimum",
+     *      maxMessage = "{{ limit }} caractères maximum",
+     *      allowEmptyString = false
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+          * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "{{ limit }} caractères minimum",
+     *      maxMessage = "{{ limit }} caractères maximum",
+     *      allowEmptyString = false
+     * )
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+          * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "{{ limit }} caractères minimum",
+     *      maxMessage = "{{ limit }} caractères maximum",
+     *      allowEmptyString = false
+     * )
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255)
+          * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      minMessage = "{{ limit }} caractères minimum",
+     *      maxMessage = "{{ limit }} caractères maximum",
+     *      allowEmptyString = false
+     * )
      */
     private $mail;
 
     /**
      * @ORM\Column(type="string", length=255)
+          * @Assert\Length(
+     *      min = 5,
+     *      max = 250,
+     *      minMessage = "{{ limit }} caractères minimum",
+     *      maxMessage = "{{ limit }} caractères maximum",
+     *      allowEmptyString = false
+     * )
      */
     private $motDePasse;
 

@@ -25,6 +25,13 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
+     * @Assert\Length(
+     * min = 1,
+     * max = 3,
+     * minMessage = "{{ limit }} caractères minimum",
+     * maxMessage = "{{ limit }} caractères maximum",
+     * allowEmptyString = false
+     * )
      */
     private $nom;
 
@@ -37,6 +44,7 @@ class Sortie
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Assert\Positive
      */
     private $duree;
 
@@ -54,6 +62,14 @@ class Sortie
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     * min = 0,
+     * max = 255,
+     * minMessage = "{{ limit }} caractères minimum",
+     * maxMessage = "{{ limit }} caractères maximum",
+     * allowEmptyString = false
+     * )
      */
     private $infosSortie;
 

@@ -6,6 +6,7 @@ use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=VilleRepository::class)
@@ -21,11 +22,26 @@ class Ville
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     * min = 2,
+     * max = 3,
+     * minMessage = "{{ limit }} caractères minimum",
+     * maxMessage = "{{ limit }} caractères maximum",
+     * allowEmptyString = false
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 0,
+     *      max = 5,
+     *      minMessage = "{{ limit }} caractères minimum",
+     *      maxMessage = "{{ limit }} caractères maximum",
+     *      allowEmptyString = false
+     * )
      */
     private $codePostal;
 
