@@ -24,8 +24,8 @@ class Ville
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Length(
-     * min = 2,
-     * max = 3,
+     * min = 1,
+     * max = 50,
      * minMessage = "{{ limit }} caractères minimum",
      * maxMessage = "{{ limit }} caractères maximum",
      * allowEmptyString = false
@@ -36,7 +36,7 @@ class Ville
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
-     *      min = 0,
+     *      min = 5,
      *      max = 5,
      *      minMessage = "{{ limit }} caractères minimum",
      *      maxMessage = "{{ limit }} caractères maximum",
