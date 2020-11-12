@@ -45,6 +45,11 @@ class Sortie
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
      * @Assert\Positive
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 1000,
+     *      notInRangeMessage = "Votre sortie doit durer au minimum {{ min }} heure",
+     * )
      */
     private $duree;
 
@@ -61,7 +66,7 @@ class Sortie
      * @Assert\Range(
      *      min = 1,
      *      max = 500,
-     *      notInRangeMessage = "Votre sortie doit pouvoir accueillir minimum {{ min }} personne",
+     *      notInRangeMessage = "Votre sortie doit pouvoir accueillir au minimum {{ min }} personne",
      * )
      */
     private $nbInscriptionMax;
