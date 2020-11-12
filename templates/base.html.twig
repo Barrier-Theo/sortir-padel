@@ -15,7 +15,7 @@
 	{% block stylesheets %}{% endblock %}
 </head>
 
-<body>
+<body class="d-flex flex-column">
 	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 		<img class="my-0 mr-md-auto font-weight-normal" src="{{ asset('images/padelLogo.png') }}" alt="padelLogo"
 			width="56" height="56">
@@ -66,13 +66,14 @@
 	{% endfor %}
 
 	{% block body %}{% endblock %}
-	{% block javascripts %}{% endblock %}
 
-	{# 			<footer class="footer bg-light border-top container-fluid" style="position: absolute; padding-bottom: 10px; padding-top: 10px; margin-top: 50px; bottom:0; ">
-				<div class="text-center text-dark">&copy
-					{{ "now" | date("Y") }}
-					- Théo Barrier - Maxime Varron - Anthony Aram - Symfony project with ENI</div>
-			</footer> #}
+	<footer id="sticky-footer" class="py-4 bg-primary text-white-50">
+		<div class="container text-center color-light">
+			<small>&copy {{  "now" | date("Y") }} - Théo Barrier - Maxime Varron - Anthony Aram - Sortir</small>
+		</div>
+	</footer>
+
+	{% block javascripts %}{% endblock %}
 
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

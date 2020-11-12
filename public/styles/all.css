@@ -162,6 +162,24 @@ i.icon-2x {
 }
 
 
+/* Sticky Footer Classes */
+
+html,
+body {
+  height: 100%;
+}
+
+#page-content {
+  flex: 1 0 auto;
+}
+
+#sticky-footer {
+  flex-shrink: 0;
+}
+
+.container-fluid {
+  flex: 1 0 auto;
+}
 @media (max-width: 767.98px) { 
 
 .smartphone{
