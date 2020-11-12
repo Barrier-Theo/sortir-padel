@@ -72,6 +72,13 @@ class HomeController extends AbstractController
                 $etat = $etatRepo->findOneBy(['libelle' => 'Passée']);
                 $sortie->setEtat($etat);
             }
+
+            // Sortie full
+            if ($sortie->isSortieFull()) {
+                $etat = $etatRepo->findOneBy(['libelle' => 'Clôturée']);
+                $sortie->setEtat($etat);
+            }
+
             $entityManager->persist($sortie);
         }
 
@@ -103,10 +110,10 @@ class HomeController extends AbstractController
             $inscription->setSortie($sortie);
             $entityManager->persist($inscription);
         } else {
-            $sortie->setEtat($etat);
-            $entityManager->persist($sortie);
-        }
 
+            $sortie->setEtat($etat);
+        }
+        $entityManager->persist($sortie);
         $entityManager->flush();
 
         return $this->redirectToRoute('home');

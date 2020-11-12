@@ -86,13 +86,13 @@
 								{% if inscription.participant.id ==  app.user.id %}
 									{% set isInscrit = true %}
 									<th>X</th>
-								{% else %}
-									<th></th>
 								{% endif %}
 							{% endfor %}
-							{% if sortie.inscriptions|length <= 0 %}
-								<th></th>
+
+							{% if isInscrit == false %}
+								<th>pas inscrit</th>
 							{% endif %}
+
 							{# Organisateur #}
 							<th>
 								<a href="{{ path('participant_profil', {'id': sortie.organisateur.id}) }}">
@@ -144,13 +144,13 @@
 						</tr>
 					{% endfor %}
 				</tbody>
-			</table>
-		</div>
-		<div class="row  d-flex justify-content-center" style="margin-top: 15px;">
-			<div class="col-10">
-				<a class="btn btn-primary smartphone mb-4" href="{{ path('sortie_new_user') }}">Créer une sortie</a>
+			</tbody>
+		</table>
+	</div>
+	<div class="row  d-flex justify-content-center" style="margin-top: 15px;">
+		<div class="col-10">
+			<a class="btn btn-primary smartphone mb-4" href="{{ path('sortie_new_user') }}">Créer une sortie</a>
 
-			</div>
 		</div>
 	</div>
-{% endblock %}
+</div>{% endblock %}
