@@ -63,6 +63,7 @@ class Sortie
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
+     * @Assert\Positive
      * @Assert\Length(
      * min = 0,
      * max = 255,
