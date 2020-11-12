@@ -93,7 +93,12 @@ class SortieController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash("success", ["text" => "La sortie a été modifiée !", "couleur" => "#4CB050"]);
 
-            return $this->redirectToRoute('sortie_index');
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('sortie_index');
+             } else {
+                return $this->redirectToRoute('home');
+             }
+            
         }
 
         return $this->render('sortie/edit.html.twig', [
