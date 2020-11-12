@@ -20,7 +20,9 @@ class SortieType extends AbstractType
             ->add('dateHeureDebut', null,[
                 'widget' => 'single_text'
             ])
-            ->add('duree')
+            ->add('duree', null, [
+                'label' => 'Durée en heures'
+            ])
             ->add('dateLimiteInscription', null,[
                 'widget' => 'single_text'
             ])
