@@ -27,7 +27,7 @@ class Sortie
      * @Assert\NotBlank
      * @Assert\Length(
      * min = 1,
-     * max = 3,
+     * max = 50,
      * minMessage = "{{ limit }} caractères minimum",
      * maxMessage = "{{ limit }} caractères maximum",
      * allowEmptyString = false
@@ -57,6 +57,12 @@ class Sortie
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Assert\Positive
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 500,
+     *      notInRangeMessage = "Votre sortie doit pouvoir accueillir minimum {{ min }} personne",
+     * )
      */
     private $nbInscriptionMax;
 
