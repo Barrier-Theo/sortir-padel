@@ -79,22 +79,24 @@ class ParticipantController extends AbstractController
      */
     public function editMe(Request $request, ParticipantRepository $participantRepository, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $idUser = $this->getUser()->getId();
-        $participant = $participantRepository->find($idUser);
+        $participant = $this->getUser();
 
         $form = $this->createForm(ParticipantType::class, $participant);
+
         $form->remove('administrateur');
         $form->remove('actif');
 
         $form->handleRequest($request);
+        $this->getDoctrine()->getManager()->refresh($participant);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $participant->setMotDePasse($passwordEncoder->encodePassword(
                 $participant,
                 $form->get('motDePasse')->getData()
-            )
-            );
+            ));
+            $this->getDoctrine()->getManager()->persist($participant);
             $this->getDoctrine()->getManager()->flush();
+
             $this->addFlash("success", ["text" => "Vous avez modifié votre profil !", "couleur" => "#4CB050"]);
 
             return $this->redirectToRoute('participant_show_me');
