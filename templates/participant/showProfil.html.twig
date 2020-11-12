@@ -40,6 +40,10 @@
                         </tr>
                         </tbody>
                     </table>
+
+                    {% if app.user.id == participant.id %}
+                        <a class="btn btn-primary mt-2 mb-2" href="{{ path('participant_edit_me') }}">Modifier</a>
+                    {% endif %}
         </div>
     </div>
 </div>

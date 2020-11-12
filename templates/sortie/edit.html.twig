@@ -11,8 +11,9 @@
             {{ include('sortie/_form.html.twig', {'button_label': 'Modifier'}) }}
 
             {{ include('sortie/_delete_form.html.twig') }}
-
-            <a href="{{ path('sortie_index') }}">retour à la liste</a>
+            {% if is_granted('ROLE_ADMIN') %}
+                 <a href="{{ path('sortie_index') }}">retour à la liste</a>
+            {% endif %}
         </div>
     </div>
 </div>
