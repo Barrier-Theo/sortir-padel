@@ -12,7 +12,7 @@
         <thead>
             <tr>
                 <th>Nom</th>
-                <th>Rue</th>
+                <th>Rue/Ville</th>
                 <th>Latitude</th>
                 <th>Longitude</th>
                 <th>actions</th>
@@ -22,7 +22,7 @@
         {% for lieu in lieux %}
             <tr>
                 <td>{{ lieu.nom }}</td>
-                <td>{{ lieu.rue }}</td>
+                <td>{{ lieu.rue }}, {{ lieu.ville.nom }}</td>
                 <td>{{ lieu.latitude }}</td>
                 <td>{{ lieu.longitude }}</td>
                 <td>

@@ -36,6 +36,7 @@ class ParticipantController extends AbstractController
     {
         $participant = new Participant();
         $form = $this->createForm(ParticipantType::class, $participant);
+        $form->remove('imageFile');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -137,6 +138,7 @@ class ParticipantController extends AbstractController
     {
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->remove('motDePasse');
+        $form->remove('imageFile');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
